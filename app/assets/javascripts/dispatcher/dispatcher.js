@@ -1,0 +1,3 @@
+
+
+var friendzDispatcher = new FluxDispatcher();

@@ -1,0 +1,9 @@
+<h1 align = "center">Log in!</h1>
+<br>
+<h4 align = "center">
+  <%= " Or if you dont have an account, we're sure you're #{UsersHelper.adjective},
+        so go ahead and " %>
+  <%= link_to "Sign Up!", new_user_url, method: :get %>
+</h4>
+
+<%= render 'form', user: @user, submit_text: "Log In!" %>

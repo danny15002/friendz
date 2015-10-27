@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Friendz</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+  <%= csrf_meta_tags %>
+  <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAje8VHPsmqBlKVNh7IF9gmFUI-bZyp6k0">
+  </script>
+</head>
+
+<body>
+
+  <script>
+    console.log($(window).height());   // returns height of browser viewport
+    console.log($(document).height()); // returns height of HTML document
+    console.log($(window).width());   // returns width of browser viewport
+    console.log($(document).width());
+    console.log(screen.height);
+    console.log(screen.width);
+  </script>
+
+  <div class = "main-container">
+    <%= yield %>
+  </div>
+
+
+</body>
+</html>

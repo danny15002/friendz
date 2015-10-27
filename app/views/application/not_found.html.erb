@@ -1,0 +1,16 @@
+<% if current_user %>
+<p align = 'center'>
+  There's nothing here, <%= current_user.username %>. Go home. you're drunk.
+</p>
+<div align = 'center' >
+  <%= link_to 'Go Home!!!', root_url%>
+</div>
+
+<% else %>
+<p align = 'center'>
+  There's nothing here. What are you doing? Go log in.
+</p>
+  <div align = 'center' >
+    <%= link_to 'Log in!', root_url%>
+  </div>
+<% end %>

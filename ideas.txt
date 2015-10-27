@@ -1,0 +1,67 @@
+13 days total.
+
+Create user login
+
+database
+controllers
+model
+views
+
+actions
+dispatcher
+store
+view
+
+messages
+events
+pictures
+location
+
+react Router
+account settings
+
+Be done by wednesday. (9 days)
+
+Day 1:
+  set up user login
+    create user model
+    set up user controller
+    set up session controller
+    set up login page view
+    set up sign up page view
+    set up landing page for log in
+
+Day 2:
+  set up home page view
+    create home page react components
+    set up react Router
+      route to home page
+    set up flux skeleton
+      actions, events, store
+
+Day 3 & 4:
+  create fully functional messaging
+    set up document listeners and ajax requests
+    set up actions for sending messages
+    set up dispatcher
+    set up store to store messages in current view
+  style UI for messages
+
+Day 5 & 6:
+  set up event creation and event viewing
+    document listeners
+    actions, dispatcher, store
+  style UI for events
+
+Day 7 & 8
+  set up picture interaction
+    picture storage
+    picture display
+    document listeners
+    actions, dispatcher, store
+  style UI
+
+Day 9
+  Location sharing
+    be able to share location
+    mark positions of selected users
