@@ -1,6 +1,5 @@
 var WallActivity = React.createClass( {
   getInitialState: function () {
-    console.log("getinitial")
     return {messages: []}
   },
   componentDidMount: function () {
@@ -36,6 +35,7 @@ var WallActivity = React.createClass( {
 
   },
   getMessages: function () {
+    console.log("get messages")
     this.setState({messages: MessageStore.getMessages()})
   },
   fetchMessages: function () {
@@ -46,7 +46,6 @@ var WallActivity = React.createClass( {
       id = LoginStore.user().id
     }
     ApiUtil.request({url: "api/messages/" + id, data: {public: true}, constant: FriendzConstants.MESSAGES_RECEIVED});
-
   },
   render: function () {
     return (

@@ -12,10 +12,9 @@ var CommentForm = React.createClass({
       commentable_type: this.props.commentableType,
       user_id: LoginStore.user().id
     };
-    COMMENT_CONSTANT = FriendzConstants.COMMENT_CREATED + "_ON_" + this.props.message.type + this.props.message.id;
-    console.log(COMMENT_CONSTANT)
 
-    ApiUtil.create({url: "api/comments",
+    ApiUtil.request({url: "api/comments",
+                    method: 'POST',
                     data: {comment: comment},
                     constant: FriendzConstants.COMMENT_CREATED})
     this.setState({value: ""})

@@ -28,13 +28,19 @@ var Comment = React.createClass({
       this.subText = this.state.subCommentsShowing ? "Hide Replies" : "View Replies"
     }
   },
+  componentWillUpdate: function (nextProps) {
+    if (nextProps.message.comments === 0) {
+      this.subText = "(No Replies)"
+    } else {
+      this.subText = this.state.subCommentsShowing ? "Hide Replies" : "View Replies"
+    }
+  },
 
   setSubComments: function () {
     this.setState({subComments: CommentStore.getComments(this.props.message.id, this.props.message.type)});
   },
 
   fetchSubComments: function () {
-
     request={url: 'api/comments',
              method: 'GET',
              data: {commentable_type: this.props.message.type,
@@ -99,7 +105,6 @@ var Comment = React.createClass({
     ApiUtil.request(request);
 
   },
-
 
   delete: function () {
 

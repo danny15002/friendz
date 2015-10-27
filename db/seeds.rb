@@ -30,6 +30,7 @@ ProfilePicture.create(
   picture_id: 1000
 )
 
+
 25.times do
   User.create(
     username: Faker::Name.first_name,
@@ -105,4 +106,11 @@ end
     user_id: user,
     pic_url: base + num + ".png"
   )
+end
+
+26.times do |i|
+    ProfilePicture.create(
+      user_id: i,
+      picture_id: i
+    )
 end

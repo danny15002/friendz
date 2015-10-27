@@ -18,7 +18,6 @@ var FriendActivity = React.createClass( {
     MessageStore.removeChangeListener(FriendzConstants.MESSAGES_RECEIVED, this.getMessages);
     MessageStore.removeChangeListener(FriendzConstants.STATUS_POSTED, this.fetchMessages);
     MessageStore.removeChangeListener(FriendzConstants.COMMENT_CREATED, this.fetchMessages);
-
     MessageStore.removeChangeListener(FriendzConstants.COMMENT_LIKED, this.fetchMessages);
     MessageStore.removeChangeListener(FriendzConstants.COMMENT_UNLIKED, this.fetchMessages);
   },
