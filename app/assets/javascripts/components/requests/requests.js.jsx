@@ -4,17 +4,29 @@ var Requests = React.createClass({
   },
   componentDidMount: function ()
   {
-    AlertStore.addChangeListener(FriendzConstants.FETCH_REQUESTS, this.setRequests)
+    AlertStore.addChangeListener(FriendzConstants.SET_REQUESTS, this.setRequests)
+    AlertStore.addChangeListener(FriendzConstants.FETCH_REQUESTS, this.fetchRequests)
+
     var request = {
       url: "api/pending_friendships",
       method: "GET",
       data: {},
-      constant: FriendzConstants.FETCH_REQUESTS
+      constant: FriendzConstants.SET_REQUESTS
     }
     ApiUtil.request(request);
   },
   componentWillUnmount: function () {
-    AlertStore.removeChangeListener(FriendzConstants.FETCH_REQUESTS, this.setRequests);
+    AlertStore.removeChangeListener(FriendzConstants.SET_REQUESTS, this.setRequests);
+    AlertStore.removeChangeListener(FriendzConstants.FETCH_REQUESTS, this.fetchRequests);
+  },
+  fetchRequests: function () {
+    var request = {
+      url: "api/pending_friendships",
+      method: "GET",
+      data: {},
+      constant: FriendzConstants.SET_REQUESTS
+    }
+    ApiUtil.request(request);
   },
   setRequests: function () {
     this.setState({requestList: AlertStore.getMyRequests()})

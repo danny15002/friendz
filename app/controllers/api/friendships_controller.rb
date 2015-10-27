@@ -12,7 +12,7 @@ class Api::FriendshipsController < ApplicationController
   end
 
   def create
-    p params
+    
     @friendship = Friendship.create(friend_params)
     @inverse_friendship = Friendship.create(user_id: @friendship.friend_id, friend_id: @friendship.user_id)
 
@@ -28,7 +28,7 @@ class Api::FriendshipsController < ApplicationController
     @inverse_friendship = Friendship.where(user_id: @friendship.friend_id, friend_id: @friendship.user_id)
     Friendship.destroy(@friendship)
     Friendship.destroy(@inverse_friendship)
-    
+
     render json: {}
   end
 

@@ -29,9 +29,12 @@
     dispatcherID: friendzDispatcher.register( function(payload) {
       switch(payload.actionType) {
         case FriendzConstants.FETCH_REQUESTS:
-          setRequests(payload.response)
           AlertStore.emit(FriendzConstants.FETCH_REQUESTS)
           break;
+        case FriendzConstants.SET_REQUESTS:
+          setRequests(payload.response)
+          AlertStore.emit(FriendzConstants.SET_REQUESTS)
+        break;
       }
     })
   });
