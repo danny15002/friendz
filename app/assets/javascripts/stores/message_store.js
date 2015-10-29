@@ -38,16 +38,18 @@
           setMessages(payload.response);
           MessageStore.emit(FriendzConstants.STATUS_POSTED);
           break;
+        case FriendzConstants.WALL_POST_CREATED:
+          setMessages(payload.response);
+          MessageStore.emit(FriendzConstants.WALL_POST_CREATED);
+          break;
+        case FriendzConstants.WALL_POST_LIKE:
+          setMessages(payload.response);
+          MessageStore.emit(FriendzConstants.WALL_POST_LIKE);
+          break;
         case FriendzConstants.COMMENT_CREATED: // TODO: sub comment created instead
           var COMMENT_CONSTANT = FriendzConstants.COMMENT_CREATED + "_ON_" + payload.response.commentable_type + payload.response.commentable_id;
           MessageStore.emit(COMMENT_CONSTANT);
           MessageStore.emit(FriendzConstants.COMMENT_CREATED);
-          break;
-        case FriendzConstants.COMMENT_LIKED:
-          MessageStore.emit(FriendzConstants.COMMENT_LIKED);
-          break;
-        case FriendzConstants.COMMENT_UNLIKED:
-          MessageStore.emit(FriendzConstants.COMMENT_UNLIKED);
           break;
         default:
       }

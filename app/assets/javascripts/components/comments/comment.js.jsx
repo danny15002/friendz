@@ -89,18 +89,23 @@ var Comment = React.createClass({
   },
   handleLike: function () {
     var liked = this.props.message.liked;
+    var constant = FriendzConstants.COMMENT_CREATED;
+    if (this.props.message.type === "Message") {
+      constant = FriendzConstants.WALL_POST_LIKE;
+    }
+
     if (!liked) {
       request={url: 'api/likes',
                method: 'POST',
                data: {like: {likeable_id: this.props.message.id, likeable_type: this.props.message.type, user_id: LoginStore.user().id}},
-               constant: FriendzConstants.COMMENT_CREATED}
+               constant: constant}
 
     } else {
       var likeId = this.props.message.myLikeId;
       request={url: 'api/likes/' + likeId,
                method: 'DELETE',
                data: {},
-               constant: FriendzConstants.COMMENT_CREATED}
+               constant: constant}
     }
     ApiUtil.request(request);
 
@@ -108,10 +113,15 @@ var Comment = React.createClass({
 
   delete: function () {
 
+    var constant = FriendzConstants.COMMENT_CREATED;
+    if (this.props.message.type === "Message") {
+      constant = FriendzConstants.WALL_POST_CREATED;
+    }
+
     request={url: 'api/' + this.props.message.type.toLowerCase() + 's/' + this.props.message.id,
              method: 'DELETE',
              data: {},
-            constant: FriendzConstants.COMMENT_CREATED};
+            constant: constant};
     ApiUtil.request(request);
   },
 
