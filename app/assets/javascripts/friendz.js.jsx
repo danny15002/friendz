@@ -19,6 +19,7 @@ var App = React.createClass({
   }
 })
 
+
 var routes = (
   <Router>
     <Route path="login" onEnter={Login.willTransitionTo} component={Login}/>
@@ -44,6 +45,7 @@ var routes = (
     </Route>
   </Router>
 )
+
 
 $(function () {
   React.render( routes, document.getElementById("application"));

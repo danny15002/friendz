@@ -15,7 +15,6 @@ class Api::CommentsController < ApplicationController
         id: comment.id,
         author: comment.user.username,
         profPic: comment.user.profile_picture.pic_url,
-        type: "Comment",
         body: comment.body,
         likes: comment.likes.length,
         liked: comment.likes.any? {|like| like.user_id == @id}, # TODO: can check this if there is a my like id instead

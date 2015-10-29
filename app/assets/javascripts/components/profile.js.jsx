@@ -1,8 +1,6 @@
 var Profile = React.createClass ({
   mixins: [ReactRouter.History],
   getInitialState: function () {
-    console.log("Profile props")
-    console.log(this.props.params)
     return {id: this.props.params.userId, friends: [], user: {profPic: ""}}
   },
   componentDidMount: function () {
@@ -33,7 +31,6 @@ var Profile = React.createClass ({
     } else {
       id = parseInt(id);
     }
-    console.log("profile props")
     this.setState({id: id});
     ApiUtil.fetchPictures(id);
     ApiUtil.fetch({url: "users/" + nextProps.params.userId, data: {id: nextProps.params.userId}, constant: FriendzConstants.USER_RECEIVED})

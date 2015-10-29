@@ -35,7 +35,6 @@ var WallActivity = React.createClass( {
 
   },
   getMessages: function () {
-    console.log("get messages")
     this.setState({messages: MessageStore.getMessages()})
   },
   fetchMessages: function () {

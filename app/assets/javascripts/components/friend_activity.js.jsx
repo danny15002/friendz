@@ -3,9 +3,10 @@ var FriendActivity = React.createClass( {
     return {messages: []}
   },
   componentDidMount: function () {
+
     MessageStore.addChangeListener(FriendzConstants.MESSAGES_RECEIVED, this.getMessages);
-    MessageStore.addChangeListener(FriendzConstants.COMMENT_CREATED, this.fetchMessages);
     MessageStore.addChangeListener(FriendzConstants.STATUS_POSTED, this.fetchMessages);
+    MessageStore.addChangeListener(FriendzConstants.COMMENT_CREATED, this.fetchMessages);
     MessageStore.addChangeListener(FriendzConstants.COMMENT_LIKED, this.fetchMessages);
     MessageStore.addChangeListener(FriendzConstants.COMMENT_UNLIKED, this.fetchMessages);
     request = {url: "api/messages",

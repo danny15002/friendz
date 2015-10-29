@@ -32,8 +32,21 @@ var Requests = React.createClass({
     this.setState({requestList: AlertStore.getMyRequests()})
   },
   render: function () {
+    if (this.state.requestList.length === 0) {
+      return (
+        <div className="Requests">
+          <div>
+            <h1>Requests</h1>
+          </div>
+
+          <span> No Requests at this time. </span>
+
+        </div>
+      )
+    }
+
     return (
-      <div>
+      <div className="Requests">
         <div>
           <h1>Requests</h1>
         </div>

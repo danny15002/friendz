@@ -71,6 +71,7 @@
           UserStore.emit(FriendzConstants.PICTURES_RECEIVED);
           break;
         case FriendzConstants.PICTURE_UPLOADED:
+          setUserPics(payload.response);
           UserStore.emit(FriendzConstants.PICTURE_UPLOADED);
           break;
         case FriendzConstants.USERS_RECEIVED:

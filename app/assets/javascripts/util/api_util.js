@@ -45,14 +45,12 @@ ApiUtil = {
     })
   },
   createMessage: function (message, constant) {
-    console.log("createMessage")
     $.ajax({
       url: 'api/messages',
       method: 'post',
       data: {message: message},
       success: function (response) {
         ApiActions.createMessage(response, constant);
-        console.log("successful message creation");
       }
     })
   },
@@ -71,7 +69,6 @@ ApiUtil = {
       method: 'post',
       data: {event: event},
       success: function () {
-        console.log("successful event creation");
         ApiActions.createEvent();
       }
     })
@@ -124,7 +121,7 @@ ApiUtil = {
       method: 'POST',
       data: {picture: picture},
       success: function (response) {
-        ApiActions.uploadPicture()
+        ApiActions.uploadPicture(response)
       }
     });
   },

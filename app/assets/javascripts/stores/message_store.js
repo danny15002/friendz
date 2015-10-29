@@ -38,7 +38,7 @@
           MessageStore.emit(FriendzConstants.STATUS_POSTED);
           break;
         case FriendzConstants.COMMENT_CREATED: // TODO: sub comment created instead
-          COMMENT_CONSTANT = FriendzConstants.COMMENT_CREATED + "_ON_" + payload.response.commentable_type + payload.response.commentable_id;
+          var COMMENT_CONSTANT = FriendzConstants.COMMENT_CREATED + "_ON_" + payload.response.commentable_type + payload.response.commentable_id;
           MessageStore.emit(COMMENT_CONSTANT);
           MessageStore.emit(FriendzConstants.COMMENT_CREATED);
           break;

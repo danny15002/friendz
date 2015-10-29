@@ -90,9 +90,10 @@ ApiActions = {
       actionType: FriendzConstants.LOGOUT
     });
   },
-  uploadPicture: function () {
+  uploadPicture: function (response) {
     friendzDispatcher.dispatch({
-      actionType: FriendzConstants.PICTURE_UPLOADED
+      actionType: FriendzConstants.PICTURE_UPLOADED,
+      response: response
     });
   },
   create: function (response, constant) {
