@@ -34,8 +34,6 @@ var MessageForm = React.createClass( {
     var value= this.state.value;
     return (
       <div className={"message-form"}>
-        <Conversation params={this.props.params} name={name}/>
-
         <textarea
           onChange={this.handleChange}
           className={"message-text"}
@@ -44,8 +42,9 @@ var MessageForm = React.createClass( {
 
         </textarea>
         <br></br>
-        <br></br>
-        <button className={"sendMessage"} onClick={this.submitForm}>Send</button>
+        <button style={{top: "-40px", margin: "auto", width: "90%", left: "5%"}} className={"sendMessage"} onClick={this.submitForm}>Send</button>
+
+        <Conversation params={this.props.params} name={name}/>
       </div>)
   }
 })

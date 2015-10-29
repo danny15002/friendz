@@ -11,6 +11,7 @@ class Api::PendingFriendshipsController < ApplicationController
           id: request.id,
           from_id: request.requester_id,
           to_id: request.accepter_id,
+          picUrl: request.requester.profile_picture.pic_url,
           request: request.requester.username
         }
       )

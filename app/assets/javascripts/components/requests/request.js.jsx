@@ -23,7 +23,8 @@ var Request = React.createClass({
   render: function () {
     return (
       <div onClick={this.acceptRequest} className={"request"}>
-        New friend request from {this.props.request.request}, click to accept
+        <ProfilePicture source={this.props.request.picUrl} style={{display: "inline-block", height: "100px", width: "100px"}} />
+        <div style={{height: "100px"}}> New friend request from {this.props.request.request}, click to accept </div>
       </div>
     )
   }

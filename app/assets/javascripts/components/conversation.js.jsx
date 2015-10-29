@@ -32,14 +32,20 @@ var Conversation = React.createClass( {
       <div className={"conversation"}>
         <ul>
           {this.state.messages.map( function (message, idx) {
+            var style = {color: "#88000"}
+            if (message.author === LoginStore.user().username)
+            {
+              style = {color: "white", background: "#880000"};
+            }
+
             return (
-              <li key={message.id} className={"message"}>
+              <li style={style} key={message.id} className={"private message"}>
                 <div>
-                  <div className={"msg-sender"}>Sent By: {message.author}</div>
+                  <div className={"author"}>
+                    {message.author} <span className={"glyphicon glyphicon-triangle-right"}></span> {message.recipient}
+                  </div>
                   <div className={"msg-created"}>{message.created_at}</div>
                 </div>
-                <br></br>
-                <div className={"msg-sender"}>Sent To: {message.recipient}</div>
                 <br></br>
                 <br></br>
                 <p className={"msg-body"}>{message.body}</p>

@@ -86,7 +86,7 @@ header h2 {
 .message {
   margin-bottom: 10px;
   margin-left: 10px;
-  margin-: 10px;
+
 }
 
 .msg-sender {
@@ -101,30 +101,33 @@ header h2 {
 
 }
 
+
+////////////////////////////////////////////////////////////////////////////////
 .conversation ul {
   position: relative;
   margin:auto;
   width: 100%;
   padding: 0;
-  top: 10px;
 }
 
 .message-form {
   position:relative;
-  width: 55%;
+  width: 510px;
   float: left;
   margin: auto;
   height: 80vh;
   top: 36px;
 }
 
+
 .conversation {
   position: relative;
+  top: -25px;
   padding: 0;
-  border: 2px solid black;
+  // border: 2px solid black;
   height: 60vh;
   overflow-y: scroll;
-  width: 90%;
+  width: 470px;
   margin: 0 auto;
 
 }
@@ -132,13 +135,22 @@ header h2 {
 .message-form textarea {
   position: relative;
   padding: 0;
-  top: 20px;
+  top: 0px;
   width: 90%;
-  height: 10%;
+  height: 15%;
   margin: 0 auto;
   display: block;
 }
 
+.private.message {
+  position: relative;
+  border: outset 1px;
+  border-radius: 4px;
+  // background: mistyrose;
+  margin: 10px auto;
+}
+
+////////////////////////////////////////////////////////////////////////////////
 
 
 .event-form input {
@@ -632,4 +644,37 @@ button {
   padding: 10px;
   float: right;
   // height: 500px;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+.requests {
+  margin-top: 33px;
+  width: 80%;
+  float: left;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.requests h1 {
+  padding-left: 40px;
+}
+
+.request {
+  margin: 20px 0px 20px;
+  border: outset 2px;
+  font-size: 17px;
+
+}
+
+.request div {
+  display: inline-block;
+  height: 100px;
+  padding: 40px
+}
+
+.request:hover {
+  color: white;
+  background: red;
+  cursor:pointer;
 }

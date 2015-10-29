@@ -46,9 +46,9 @@ var Requests = React.createClass({
     }
 
     return (
-      <div className="Requests">
+      <div className="requests">
         <div>
-          <h1>Requests</h1>
+          <h1>Friendship Requests</h1>
         </div>
 
         <div>
