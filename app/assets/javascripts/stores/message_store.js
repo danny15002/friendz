@@ -35,6 +35,7 @@
           MessageStore.emit(FriendzConstants.MESSAGE_SENT);
           break;
         case FriendzConstants.STATUS_POSTED:
+          setMessages(payload.response);
           MessageStore.emit(FriendzConstants.STATUS_POSTED);
           break;
         case FriendzConstants.COMMENT_CREATED: // TODO: sub comment created instead

@@ -602,6 +602,10 @@ button {
   display: none;
 }
 
+.trashcan:hover {
+  cursor: pointer;
+}
+
 .main-comment:hover > .trashcan {
   display: block;
 }
