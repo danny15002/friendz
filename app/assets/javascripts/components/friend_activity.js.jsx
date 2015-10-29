@@ -5,7 +5,7 @@ var FriendActivity = React.createClass( {
   componentDidMount: function () {
 
     MessageStore.addChangeListener(FriendzConstants.MESSAGES_RECEIVED, this.getMessages);
-    MessageStore.addChangeListener(FriendzConstants.WALL_POST_CREATED, this.ifWallPostsChange);
+    MessageStore.addChangeListener(FriendzConstants.WALL_POST_CREATED, this.ifWallPostsChange); // TODO: combine created and liked listeners into 1
     MessageStore.addChangeListener(FriendzConstants.WALL_POST_LIKE, this.ifWallPostsChange);
     MessageStore.addChangeListener(FriendzConstants.NEED_COMMENTS_ON_OUTER, this.ifCommentsChange);
     request = {url: "api/messages",
@@ -16,10 +16,9 @@ var FriendActivity = React.createClass( {
   },
   componentWillUnmount: function () {
     MessageStore.removeChangeListener(FriendzConstants.MESSAGES_RECEIVED, this.getMessages);
-    MessageStore.removeChangeListener(FriendzConstants.STATUS_POSTED, this.ifWallPostsChange);
-    MessageStore.removeChangeListener(FriendzConstants.COMMENT_CREATED, this.fetchMessages);
-    MessageStore.removeChangeListener(FriendzConstants.COMMENT_LIKED, this.fetchMessages);
-    MessageStore.removeChangeListener(FriendzConstants.COMMENT_UNLIKED, this.fetchMessages);
+    MessageStore.removeChangeListener(FriendzConstants.WALL_POST_CREATED, this.ifWallPostsChange);
+    MessageStore.removeChangeListener(FriendzConstants.WALL_POST_LIKE, this.ifWallPostsChange);
+    MessageStore.removeChangeListener(FriendzConstants.NEED_COMMENTS_ON_OUTER, this.ifCommentsChange);
   },
   getMessages: function () {
     this.setState({messages: MessageStore.getMessages()});
