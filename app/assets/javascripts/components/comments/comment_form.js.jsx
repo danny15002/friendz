@@ -13,10 +13,16 @@ var CommentForm = React.createClass({
       user_id: LoginStore.user().id
     };
 
+    var constant = FriendzConstants.WALL_POST_CREATED; // TODO: WALL POST COMMENTED ON IN THIS CASE, NEED MORE GENERAL CONSTANT NAME
+
+    if (this.props.commentableType === "Comment") {
+      constant = "";
+    }
+
     ApiUtil.request({url: "api/comments",
                     method: 'POST',
                     data: {comment: comment},
-                    constant: FriendzConstants.COMMENT_CREATED})
+                    constant: constant})
     this.setState({value: ""})
   },
   render: function () {

@@ -8,10 +8,8 @@ var Comment = React.createClass({
     return {formShowing: false, subCommentsShowing: false, subComments: []}
   },
   componentDidMount: function () {
-    COMMENT_CONSTANT = FriendzConstants.COMMENT_CREATED + "_ON_" + this.props.message.type + this.props.message.id;
-    CommentStore.addChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.setSubComments);
-    MessageStore.addChangeListener(COMMENT_CONSTANT, this.fetchSubComments);
-    MessageStore.addChangeListener(FriendzConstants.COMMENT_CREATED, this.fetchSubComments);
+    // if this.props.type === 'Message'
+    //   MessageStore.addChangeListener(FriendzConstants.OUTER_MESSAGE_)
 
   },
   componentWillUnmount: function () {
@@ -29,7 +27,7 @@ var Comment = React.createClass({
     }
   },
   componentWillUpdate: function (nextProps) {
-    if (nextProps.message.comments === 0) {
+    if (parseInt(nextProps.message.comments) === 0) {
       this.subText = "(No Replies)"
     } else {
       this.subText = this.state.subCommentsShowing ? "Hide Replies" : "View Replies"

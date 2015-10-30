@@ -23,6 +23,9 @@ class Api::CommentsController < ApplicationController
         createdAt: comment.format_comment_time,
         comments: comment.comments.length
         }}}
+    if params[:commentable_type] == 'Messages'
+      response = Messages.get_newsfeed
+    end
 
     render json: response
   end
@@ -30,9 +33,13 @@ class Api::CommentsController < ApplicationController
   def create
     p params
     @comment = Comment.create(comment_params)
+    id = current_user.id
 
     if @comment.save
-      render json: @comment
+      if @comment.commentable_type == 'Message'
+        response = Message.get_newsfeed(id)
+      end
+      render json: response
     else
       render json: "failed"
     end

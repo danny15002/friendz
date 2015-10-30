@@ -26,7 +26,7 @@ class Api::MessagesController < ApplicationController
     if @message.save
       # Message.activity(@message)
       id = current_user.id
-      messages = Message.get_wall_posts(id)
+      messages = Message.get_newsfeed(id)
       # messages = Message.get_wall_posts(params[:id])
 
       render json: messages
@@ -40,8 +40,8 @@ class Api::MessagesController < ApplicationController
     Message.where(id: params[:id]).destroy_all
 
     id = current_user.id
-    messages = Message.get_wall_posts(id)
-    
+    messages = Message.get_newsfeed(id)
+
     render json: messages
   end
   private

@@ -55,4 +55,5 @@
       }
     })
   });
+  MessageStore.setMaxListeners(100)
 }(this));
