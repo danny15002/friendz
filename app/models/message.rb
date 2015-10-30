@@ -29,6 +29,48 @@ class Message < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
 
+  def self.get_wall_posts(id)
+    messages = Message.connection.select_all("
+      SELECT
+        messages.id,
+        authors.username AS author, recipients.username AS recipient,
+        pictures.pic_url as \"profPic\",
+        messages.body,
+        COUNT( DISTINCT likes.id) AS likes,
+        CASE WHEN likes.id IS NULL THEN FALSE ELSE TRUE END AS liked,
+        CASE WHEN likes.user_id = #{id} THEN likes.id ELSE NULL END AS \"myLikeId\",
+        'Message' AS type,
+        messages.created_at AS \"createdAt\",
+        COUNT(comments.id) AS comments
+      FROM
+        messages
+      LEFT OUTER JOIN
+        comments ON messages.id = comments.commentable_id
+      LEFT OUTER JOIN
+        likes ON  messages.id = likes.likeable_id
+      JOIN
+        users authors ON messages.from_id = authors.id
+      JOIN
+        users recipients ON messages.to_id = recipients.id
+      JOIN
+        profile_pictures ON profile_pictures.user_id = authors.id
+      JOIN
+        pictures ON profile_pictures.picture_id = pictures.id
+      WHERE
+        (likes.likeable_type = 'Message' OR likes.likeable_type IS NULL) AND
+        (comments.commentable_type = 'Message' OR comments.commentable_type IS NULL) AND
+        (comments.commentable_type = 'Message' OR
+        comments.commentable_type IS NULL) AND
+        (recipients.id = #{id} OR authors.id = #{id}) AND
+        messages.public = true
+      GROUP BY
+        messages.id, likes.id, authors.username, recipients.username,
+        pictures.pic_url, comments.commentable_type
+      ORDER BY
+        messages.created_at DESC
+    ")
+  end
+
   def number_likes
     self.likes.length;
   end

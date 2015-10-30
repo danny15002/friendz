@@ -28,7 +28,7 @@ var FriendActivity = React.createClass( {
   },
   ifCommentsChange: function () {
 
-  }
+  },
 
   render: function () {
     return (

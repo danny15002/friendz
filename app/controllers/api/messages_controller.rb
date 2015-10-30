@@ -30,16 +30,14 @@ class Api::MessagesController < ApplicationController
   end
 
   def show
-    @id = current_user.id
+    id = current_user.id
 
     if params[:public] == 'true' # getting all messages to and from params[:id]
-      @messages = Message.all.where(public: true).where("to_id = #{params[:id]} OR from_id = #{params[:id]}").includes(:comments, :likes, :user_to, user_from: [:pictures, :profile_picture]).order(:created_at).reverse_order
-      @public = true
+      messages = Message.get_wall_posts(id)
     elsif params[:public] == 'false'
       @messages = Message.all.where(public: false).where("(to_id = #{params[:user_id]} AND from_id = #{@id}) OR (to_id = #{@id} AND from_id = #{params[:user_id]})").includes(:user_to, :user_from).order(:created_at).reverse_order
     end
     ## TODO: Fix request for private messages
-    messages = []
 
     if @public
       @messages.each do |message|
@@ -57,7 +55,7 @@ class Api::MessagesController < ApplicationController
             comments: message.comments.length
             })
       end
-    else
+    elsif @public
       @messages.each do |message|
         messages.push(
         { id: message.id,
