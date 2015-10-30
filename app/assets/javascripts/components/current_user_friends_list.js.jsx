@@ -18,7 +18,6 @@ var UserFriendsList = React.createClass({
   },
 
   handleClick: function (event) {
-    // console.log($(event.target).context.id);
     var selected = $(event.target).context.id;
     if (selected === undefined) {
       selected = LoginStore.user().id

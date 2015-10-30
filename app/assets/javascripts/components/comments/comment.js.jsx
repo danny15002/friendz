@@ -2,14 +2,14 @@ var Comment = React.createClass({
   getInitialState: function () {
     this.formText = "Reply"
     this.subText = "(No Replies)"
-    if ( this.props.message.comments > 0) {
+    if ( parseInt(this.props.message.comments) > 0) {
       this.subText = "View Replies"
     }
-    return {formShowing: false, subCommentsShowing: false, subComments: []}
+    return {formShowing: false, subCommentsShowing: false}
   },
   componentDidMount: function () {
     // if this.props.type === 'Message'
-    //   MessageStore.addChangeListener(FriendzConstants.OUTER_MESSAGE_)
+
 
   },
   componentWillUnmount: function () {
@@ -26,12 +26,12 @@ var Comment = React.createClass({
       this.subText = this.state.subCommentsShowing ? "Hide Replies" : "View Replies"
     }
   },
-  componentWillUpdate: function (nextProps) {
-    if (parseInt(nextProps.message.comments) === 0) {
-      this.subText = "(No Replies)"
-    } else {
-      this.subText = this.state.subCommentsShowing ? "Hide Replies" : "View Replies"
-    }
+  componentWillUpdate: function (nextProps, nextState) {
+    // if (parseInt(nextProps.message.comments) === 0) {
+    //   this.subText = "(No Replies)"
+    // } else {
+    //   this.subText = nextState.subCommentsShowing ? "Hide Replies" : "View Replies"
+    // }
   },
 
   setSubComments: function () {
@@ -60,13 +60,21 @@ var Comment = React.createClass({
       return (
        <SubCommentList
         key={key}
-        comments={comments}
         level={this.props.level + 1}
         replyFunction={this.handleReply}
+        type={this.props.message.type}
+        c_id={this.props.message.id}
         />
       )
     }
-    return <SubCommentList key={key} comments={comments} level={this.props.level + 1} />
+    return (
+      <SubCommentList
+        key={key}
+        level={this.props.level + 1}
+        type={this.props.message.type}
+        c_id={this.props.message.id}
+        />
+    )
   },
   heading: function (message) {
     var heading = (
@@ -127,8 +135,9 @@ var Comment = React.createClass({
     this.setState({formShowing: !this.state.formShowing})
   },
 
-  handleViewReplies: function () {
-    if (this.props.message.comments > 0 ) {
+  clickViewReplies: function () {
+    // debugger
+    if (parseInt(this.props.message.comments) > 0 ) {
       if (!this.state.subCommentsShowing) {
         this.setState({subCommentsShowing: !this.state.subCommentsShowing});
         request={url: 'api/comments',
@@ -138,8 +147,7 @@ var Comment = React.createClass({
                  constant: FriendzConstants.COMMENTS_RECEIVED};
         ApiUtil.request(request);
         this.subText = "Hide Replies"
-      }
-      if (this.state.subCommentsShowing) {
+      } else if (this.state.subCommentsShowing) {
         this.setState({subCommentsShowing: !this.state.subCommentsShowing});
         this.subText = "View Replies"
       }
@@ -169,7 +177,7 @@ var Comment = React.createClass({
           <div onClick={this.handleReply} style={{paddingRight: "5px"}}>
             <span className={"glyphicon glyphicon-share-alt"}></span> {this.formText}
           </div>
-          <div onClick={this.handleViewReplies}>
+          <div onClick={this.clickViewReplies}>
             {this.subText}
           </div>
           <div style={{float: "right"}}>
@@ -209,13 +217,9 @@ var Comment = React.createClass({
   },
 
   render: function () {
-
     var message = this.props.message;
-    var subComments=<div></div>;
+    var subComments = this.subComments(this.state.subComments, message.id);
 
-    if (this.state.subComments.length > 0 && this.state.subCommentsShowing) {
-      subComments = this.subComments(this.state.subComments, message.id);
-    }
 
     var form = <div></div>;
     if (this.props.level <= 2) {
@@ -237,7 +241,7 @@ var Comment = React.createClass({
           <div style={{height: picsize + "px", width: "calc( 100% - " + picsize + "px )"}} className="comment-body">
             <div className={"comment-header"}>
               <div style={{float: "left"}}>{this.heading(message)}</div>
-              <div style={{float: "right"}} className={"time"}>{message.createdAt}</div>
+              <div style={{float: "right"}} className={"time"}>{TimeToWords(message.createdAt)}</div>
             </div>
             <div style={{overflowY: "scroll", paddingTop: "5px", height: (picsize - 40) + "px"}}>
               {message.body}

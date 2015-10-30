@@ -20,6 +20,42 @@ class Comment < ActiveRecord::Base
 
   has_many :likes, as: :likeable, dependent: :destroy
 
+  def self.get_comments
+    response = {}
+    response[:commentableId] = params[:commentable_id]
+    response[:type] = params[:commentable_type]
+    response[:comments] = Comment.connection.select_all("
+      SELECT
+        comments.id, COUNT(comments2) AS comments, COUNT(likes) AS likes,
+        authors.username AS author,
+        pictures.pic_url as \"profPic\",
+        comments.body,
+        COUNT( DISTINCT likes.id) AS likes,
+        CASE WHEN likes.id IS NULL THEN FALSE ELSE TRUE END AS liked,
+        CASE WHEN likes.user_id = #{id} THEN likes.id ELSE NULL END AS \"myLikeId\",
+        'Comment' AS type,
+        comments.created_at AS \"createdAt\"
+      FROM
+        comments
+      LEFT OUTER JOIN
+        comments comments2 ON comments.id = comments2.commentable_id
+      LEFT OUTER JOIN
+        likes ON  comments.id = likes.likeable_id
+      JOIN
+        users authors ON comments.user_id = authors.id
+      JOIN
+        profile_pictures ON profile_pictures.user_id = authors.id
+      JOIN
+        pictures ON profile_pictures.picture_id = pictures.id
+      WHERE
+        (comments.commentable_id = '#{params[:commentable_id]}')
+      GROUP BY
+        comments.id, authors.username, pictures.pic_url, likes.id
+      ORDER BY
+        comments.created_at
+    ")
+  end
+
   def number_likes
     self.likes.length;
   end

@@ -1,5 +1,17 @@
 var SubCommentList = React.createClass({
     // TODO: move comment created listeners from comment to here
+  getInitialState: function () {
+    return {comments: []}
+  },
+  componentDidMount: function () {
+    CommentStore.addChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
+  },
+
+  fetchCommentList: function () {
+    type = this.props.type;
+    c_id = parseInt(this.props.c_id);
+    this.setState({comments: CommentStore.getComments(c_id, type)});
+  },
 
   render: function () {
     var replyFunction = "";
@@ -9,7 +21,7 @@ var SubCommentList = React.createClass({
     return(
       <div className={"comment-list"}>
           <ul>
-            {this.props.comments.map(function (comment) {
+            {this.state.comments.map(function (comment) {
               return (<li>
                 <Comment
                   className={""}
