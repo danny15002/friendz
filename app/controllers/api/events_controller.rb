@@ -1,10 +1,26 @@
 class Api::EventsController < ApplicationController
 
-  def index
-    @events = current_user.friends_events
-    @events += current_user.created_events
+  # def index
+  #   @events = current_user.friends_events
+  #   @events += current_user.created_events
+  #
+  #   render :index
+  # end
 
-    render :index
+  def index
+    id = current_user.id
+
+    response = Message.connection.select_all("
+      SELECT
+        friendships.friend_id
+      FROM
+        users
+      LEFT OUTER JOIN
+        friendships ON friendships.user_id = users.id
+      WHERE
+        users.id = #{id}
+    ")
+    render json: response
   end
 
   def create

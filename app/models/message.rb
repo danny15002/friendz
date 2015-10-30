@@ -71,31 +71,97 @@ class Message < ActiveRecord::Base
     ")
   end
 
-  def number_likes
-    self.likes.length;
+  def self.get_newsfeed(id)
+    messages = Message.connection.select_all("
+      SELECT
+        messages.id,
+        authors.username AS author, recipients.username AS recipient,
+        pictures.pic_url as \"profPic\",
+        messages.body,
+        COUNT( DISTINCT likes.id) AS likes,
+        CASE WHEN likes.id IS NULL THEN FALSE ELSE TRUE END AS liked,
+        CASE WHEN likes.user_id = #{id} THEN likes.id ELSE NULL END AS \"myLikeId\",
+        'Message' AS type,
+        messages.created_at AS \"createdAt\",
+        COUNT(comments.id) AS comments
+      FROM
+        messages
+      LEFT OUTER JOIN
+        comments ON messages.id = comments.commentable_id
+      LEFT OUTER JOIN
+        likes ON  messages.id = likes.likeable_id
+      JOIN
+        users authors ON messages.from_id = authors.id
+      JOIN
+        users recipients ON messages.to_id = recipients.id
+      JOIN
+        profile_pictures ON profile_pictures.user_id = authors.id
+      JOIN
+        pictures ON profile_pictures.picture_id = pictures.id
+      WHERE
+        (likes.likeable_type = 'Message' OR likes.likeable_type IS NULL) AND
+        (comments.commentable_type = 'Message' OR comments.commentable_type IS NULL) AND
+        (comments.commentable_type = 'Message' OR
+        comments.commentable_type IS NULL) AND
+        messages.public = true AND
+        (recipients.id = #{id} OR authors.id = #{id} OR
+        (recipients.id IN (
+          SELECT
+            friendships.friend_id
+          FROM
+            users
+          LEFT OUTER JOIN
+            friendships ON friendships.user_id = users.id
+          WHERE
+            users.id = #{id}
+        ) AND
+        authors.id IN (
+          SELECT
+            friendships.friend_id
+          FROM
+            users
+          LEFT OUTER JOIN
+            friendships ON friendships.user_id = users.id
+          WHERE
+            users.id = #{id}
+        )))
+      GROUP BY
+        messages.id, likes.id, authors.username, recipients.username,
+        pictures.pic_url, comments.commentable_type
+      ORDER BY
+        messages.created_at DESC
+    ")
   end
 
-  def is_liked?(id)
-    return self.likes.any? do |like|
-      like.user_id == id
-    end
+  def self.get_private_conversation(current_user_id, friend_id)
+    messages = Message.connection.select_all("
+      SELECT
+        messages.id,
+        authors.id As from_id,
+        recipients.id AS to_id,
+        authors.username AS author,
+        recipients.username AS recipient,
+        pictures.pic_url as \"profPic\",
+        messages.body,
+        messages.created_at AS \"createdAt\"
+      FROM
+        messages
+      JOIN
+        users authors ON messages.from_id = authors.id
+      JOIN
+        users recipients ON messages.to_id = recipients.id
+      JOIN
+        profile_pictures ON profile_pictures.user_id = authors.id
+      JOIN
+        pictures ON profile_pictures.picture_id = pictures.id
+      WHERE
+        (recipients.id = #{current_user_id} AND authors.id = #{friend_id}) OR
+        (authors.id = #{current_user_id} AND recipients.id = #{friend_id})
+      ORDER BY
+        messages.created_at DESC
+    ")
   end
 
-  def users_like_id(id)
-
-    like = self.likes.select {|like| like.likeable_type == self.class.to_s && like.user_id == id}
-
-    if like.first.nil?
-      return nil
-    else
-      return like.first.id
-    end
-  end
-
-  def self.in_network(user)
-    # requires user's friends to be pre-fetched
-    self.where("from_id IN (:network_ids) AND to_id IN (:network_ids)", network_ids: user.friend_ids)
-  end
   def format_message_time
     time = Time.now - created_at
 

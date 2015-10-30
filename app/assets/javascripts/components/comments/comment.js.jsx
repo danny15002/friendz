@@ -88,7 +88,7 @@ var Comment = React.createClass({
     return heading;
   },
   handleLike: function () {
-    var liked = this.props.message.liked;
+    var liked = this.props.message.liked === 't';
     var constant = FriendzConstants.COMMENT_CREATED;
     if (this.props.message.type === "Message") {
       constant = FriendzConstants.WALL_POST_LIKE;
@@ -152,11 +152,11 @@ var Comment = React.createClass({
     var likeOpt = "Like";
     var likes = "";
 
-    if (this.props.message.liked) {
+    if (this.props.message.liked === 't') {
       likeOpt = " UnLike"
     }
 
-    if (this.props.message.likes === 1) {
+    if (parseInt(this.props.message.likes) === 1) {
       likes = this.props.message.likes + " Like"
     } else if (this.props.message.likes > 1) {
       likes = this.props.message.likes + " Likes"
