@@ -38,4 +38,5 @@
       }
     })
   });
+  CommentStore.setMaxListeners(200)
 }(this));

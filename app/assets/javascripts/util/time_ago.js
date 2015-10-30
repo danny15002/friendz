@@ -25,11 +25,12 @@ var TimeToWords = function (time) {
   if (timeAgo < 48) {
     return "1 day ago";
   }
-  if (timeAgo < 168) {
+  if (timeAgo <= 192) {
     return Math.floor(timeAgo/24) + " days ago"
   }
-
-
+  if (timeAgo > 192) {
+    return Math.floor(timeAgo/192) + " weeks ago"
+  }
 
 
   return timeAgo;

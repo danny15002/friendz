@@ -7,6 +7,10 @@ var SubCommentList = React.createClass({
     CommentStore.addChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
     CommentStore.addChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
   },
+  componentWillUnmount: function () {
+    CommentStore.removeChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
+    CommentStore.removeChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
+  },
 
   fetchCommentList: function () {
     type = this.props.type;
