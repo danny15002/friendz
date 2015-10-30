@@ -5,6 +5,7 @@ var SubCommentList = React.createClass({
   },
   componentDidMount: function () {
     CommentStore.addChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
+    CommentStore.addChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
   },
 
   fetchCommentList: function () {

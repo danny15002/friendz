@@ -20,11 +20,8 @@ class Comment < ActiveRecord::Base
 
   has_many :likes, as: :likeable, dependent: :destroy
 
-  def self.get_comments
-    response = {}
-    response[:commentableId] = params[:commentable_id]
-    response[:type] = params[:commentable_type]
-    response[:comments] = Comment.connection.select_all("
+  def self.get_comments(commentable_id, id)
+    Comment.connection.select_all("
       SELECT
         comments.id, COUNT(comments2) AS comments, COUNT(likes) AS likes,
         authors.username AS author,
@@ -48,7 +45,7 @@ class Comment < ActiveRecord::Base
       JOIN
         pictures ON profile_pictures.picture_id = pictures.id
       WHERE
-        (comments.commentable_id = '#{params[:commentable_id]}')
+        (comments.commentable_id = #{commentable_id})
       GROUP BY
         comments.id, authors.username, pictures.pic_url, likes.id
       ORDER BY

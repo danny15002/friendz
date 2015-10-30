@@ -1,31 +1,11 @@
 class Api::CommentsController < ApplicationController
 
   def index
-    @id = current_user.id
-    @c_id = params[:commentable_id]
-    @type = params[:commentable_type]
-    @comments = Comment.all.where(commentable_type: @type,
-                                  commentable_id: @c_id).includes(user: [:pictures, :profile_picture])
-
-
-    response = {
-      commentableId: @c_id,
-      type: @type,
-      comments: @comments.map {|comment| {
-        id: comment.id,
-        author: comment.user.username,
-        profPic: comment.user.profile_picture.pic_url,
-        body: comment.body,
-        likes: comment.likes.length,
-        liked: comment.likes.any? {|like| like.user_id == @id}, # TODO: can check this if there is a my like id instead
-        myLikeId: comment.users_like_id(@id),
-        type: "Comment",
-        createdAt: comment.format_comment_time,
-        comments: comment.comments.length
-        }}}
-    if params[:commentable_type] == 'Messages'
-      response = Messages.get_newsfeed
-    end
+    id = current_user.id
+    response = {}
+    response[:commentableId] = params[:commentable_id]
+    response[:type] = params[:commentable_type]
+    response[:comments] = Comment.get_comments(params[:commentable_id], id)
 
     render json: response
   end
@@ -58,4 +38,4 @@ class Api::CommentsController < ApplicationController
                                     :user_id)
   end
 
-  end
+end
