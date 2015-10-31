@@ -190,7 +190,12 @@ var Comment = React.createClass({
 
   render: function () {
     var message = this.props.message;
-    var subComments = this.subComments(this.state.subComments, message.id);
+    var subComments = <div></div>
+    // NOTE: With this logic the children of this comment need to be brought back
+    //       every time this comment's children change
+    if (this.state.subCommentsShowing) {
+      var subComments = this.subComments(this.state.subComments, message.id);
+    }
 
 
     var form = <div></div>;

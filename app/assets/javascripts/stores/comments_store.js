@@ -37,6 +37,8 @@
           CommentStore.emit(FriendzConstants.COMMENTS_RECEIVED);
           break;
         case FriendzConstants.INNER_POST_CREATED_OR_CHANGED:
+          // TODO: check if children also came back
+          // TODO: figure out how to bring back children if subcomment list is showing
           setComments(payload.response);
           CommentStore.emit(FriendzConstants.INNER_POST_CREATED_OR_CHANGED);
           break;

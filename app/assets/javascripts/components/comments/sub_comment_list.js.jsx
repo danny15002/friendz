@@ -8,7 +8,9 @@ var SubCommentList = React.createClass({
       FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
     CommentStore.addChangeListener(
       FriendzConstants.INNER_POST_CREATED_OR_CHANGED, this.ifInnerPostsChange);
-      // TODO: check if subcomments in view to check callback to update parent children also
+    // CommentStore.addChangeListener(
+    //     FriendzConstants.UPDATE_SUBCOMMENTS
+    //   )
   },
   componentWillUnmount: function () {
     CommentStore.removeChangeListener(
@@ -24,6 +26,7 @@ var SubCommentList = React.createClass({
   },
 
   ifInnerPostsChange: function () {
+    console.log("sub comm callback")
     type = this.props.type;
     c_id = parseInt(this.props.c_id);
     this.setState({comments: CommentStore.getComments(c_id, type)});

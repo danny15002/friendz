@@ -32,12 +32,13 @@ class Api::CommentsController < ApplicationController
           commented_on["commentable_type"],
           id)
       end
-      # if @comment.commentable_type == 'Comment'
-      #   response = Comment.get_comments(
-      #     params[:comment][:commentable_id],
-      #     params[:comment][:commentable_type],
-      #     id)
-      # end
+      # Find all the subcomments of the comment being commented on
+      if @comment.commentable_type == 'Comment'
+        response[:subcomments] = Comment.get_comments(
+          params[:comment][:commentable_id],
+          params[:comment][:commentable_type],
+          id)
+      end
       render json: response
     else
       render json: "failed"
