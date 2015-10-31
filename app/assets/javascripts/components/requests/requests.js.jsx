@@ -34,12 +34,13 @@ var Requests = React.createClass({
   render: function () {
     if (this.state.requestList.length === 0) {
       return (
-        <div className="Requests">
+        <div className="requests">
           <div>
-            <h1>Requests</h1>
+            <h1>Friendship Requests</h1>
+            <br/>
+            <span style={{paddingLeft: "40px"}}> No Requests at this time. </span>
           </div>
 
-          <span> No Requests at this time. </span>
 
         </div>
       )
