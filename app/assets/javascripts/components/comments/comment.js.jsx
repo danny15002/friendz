@@ -36,6 +36,8 @@ var Comment = React.createClass({
         replyFunction={this.handleReply}
         type={this.props.message.type}
         c_id={this.props.message.id}
+        wall={this.props.wall}
+        profileId={this.props.profileId}
         />
       )
     }
@@ -45,6 +47,8 @@ var Comment = React.createClass({
         level={this.props.level + 1}
         type={this.props.message.type}
         c_id={this.props.message.id}
+        wall={this.props.wall}
+        profileId={this.props.profileId}
         />
     )
   },
@@ -73,16 +77,21 @@ var Comment = React.createClass({
     }
 
     if (!liked) {
+      var like = {
+        likeable_id: this.props.message.id,
+        likeable_type: this.props.message.type,
+        user_id: LoginStore.user().id}
+
       request={url: 'api/likes',
                method: 'POST',
-               data: {like: {likeable_id: this.props.message.id, likeable_type: this.props.message.type, user_id: LoginStore.user().id}},
+               data: {like: like, wall: this.props.wall, profile_id: this.props.profileId},
                constant: constant}
 
     } else {
       var likeId = this.props.message.myLikeId;
       request={url: 'api/likes/' + likeId,
                method: 'DELETE',
-               data: {},
+               data: {wall: this.props.wall, profile_id: this.props.profileId},
                constant: constant}
     }
     ApiUtil.request(request);
@@ -97,7 +106,7 @@ var Comment = React.createClass({
     }
     request={url: 'api/' + this.props.message.type.toLowerCase() + 's/' + this.props.message.id,
              method: 'DELETE',
-             data: {},
+             data: {wall: this.props.wall, profile_id: this.props.profileId},
             constant: constant};
     ApiUtil.request(request);
   },
@@ -192,7 +201,12 @@ var Comment = React.createClass({
 
     var form = <div></div>;
     if (this.props.level <= 2) {
-      form = <CommentForm message={message} id={message.id} commentableType={message.type}/>
+      form = <CommentForm
+              message={message}
+              id={message.id}
+              commentableType={message.type}
+              wall={this.props.wall}
+              profileId={this.props.profileId}/>
     }
 
     var picsize = 120

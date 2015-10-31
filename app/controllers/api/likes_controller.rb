@@ -9,7 +9,11 @@ class Api::LikesController < ApplicationController
       response = {}
 
       if @like.likeable_type == 'Message'
-        response = Message.get_newsfeed(id)
+        if params[:wall]
+          response = Message.get_wall_posts(id, params[:profile_id])
+        else
+          response = Message.get_newsfeed(id)
+        end
       end
       if @like.likeable_type == 'Comment'
         # find all [subcomments] of the [comment that was commented on]'s [parent]
@@ -38,7 +42,11 @@ class Api::LikesController < ApplicationController
     response = {}
 
     if like.likeable_type == 'Message'
-      response = Message.get_newsfeed(id)
+      if params[:wall]
+        response = Message.get_wall_posts(id, params[:profile_id])
+      else
+        response = Message.get_newsfeed(id)
+      end
     end
     if like.likeable_type == 'Comment'
       # find all [subcomments] of the [comment that was commented on]'s [parent]

@@ -18,7 +18,11 @@ class Api::CommentsController < ApplicationController
 
     if @comment.save
       if @comment.commentable_type == 'Message'
-        response[:messages] = Message.get_newsfeed(id)
+        if params[:wall]
+          response[:messages] = Message.get_wall_posts(id, params[:profile_id])
+        else
+          response[:messages] = Message.get_newsfeed(id)
+        end
       end
       if @comment.commentable_type == 'Comment'
         # find all [subcomments] of the [comment that was commented on]'s [parent]
@@ -56,7 +60,11 @@ class Api::CommentsController < ApplicationController
     response = {}
 
     if comment.commentable_type == 'Message'
-      response[:messages] = Message.get_newsfeed(id)
+      if params[:wall]
+        response[:messages] = Message.get_wall_posts(id, params[:profile_id])
+      else
+        response[:messages] = Message.get_newsfeed(id)
+      end
     end
     if comment.commentable_type == 'Comment'
       # find all [subcomments] of the [comment that was commented on]'s [parent]

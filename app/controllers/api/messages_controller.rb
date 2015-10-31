@@ -12,7 +12,7 @@ class Api::MessagesController < ApplicationController
     id = current_user.id
 
     if params[:public] == 'true' # getting all messages to and from params[:id]
-      messages = Message.get_wall_posts(params[:id])
+      messages = Message.get_wall_posts(id, params[:id])
     elsif params[:public] == 'false'
       messages = Message.get_private_conversation(id, params[:user_id])
     end
@@ -26,8 +26,11 @@ class Api::MessagesController < ApplicationController
     if @message.save
       # Message.activity(@message)
       id = current_user.id
-      messages = Message.get_newsfeed(id)
-      # messages = Message.get_wall_posts(params[:id])
+      if params[:wall]
+        messages = Message.get_wall_posts(id, params[:message][:to_id])
+      else
+        messages = Message.get_newsfeed(id)
+      end
 
       render json: messages
     else
@@ -36,11 +39,15 @@ class Api::MessagesController < ApplicationController
   end
 
   def destroy
-    is_public = Message.where(id: params[:id]).first.public
-    Message.where(id: params[:id]).destroy_all
+    message = Message.where(id: params[:id]).first
+    Message.destroy(message.id)
 
     id = current_user.id
-    messages = Message.get_newsfeed(id)
+    if params[:wall]
+      messages = Message.get_wall_posts(id, message.to_id)
+    else
+      messages = Message.get_newsfeed(id)
+    end
 
     render json: messages
   end

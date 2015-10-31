@@ -62,6 +62,8 @@ var SubCommentList = React.createClass({
                   message={comment}
                   level={this.props.level}
                   replyFunction={replyFunction}
+                  wall={this.props.wall}
+                  profileId={this.props.profileId}
                   />
               </li>)
             }.bind(this))}

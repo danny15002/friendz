@@ -33,7 +33,7 @@ var FriendActivity = React.createClass( {
   render: function () {
     return (
       <div className="friend-activity">
-        <MainCommentList messages={this.state.messages} />
+        <MainCommentList messages={this.state.messages} wall={false}/>
       </div>
     )
   }

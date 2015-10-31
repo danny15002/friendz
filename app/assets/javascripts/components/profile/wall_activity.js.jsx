@@ -41,9 +41,15 @@ var WallActivity = React.createClass( {
 
   },
   render: function () {
+    var id;
+    if (this.props.userId !== undefined) {
+      id = parseInt(this.props.userId);
+    } else {
+      id = LoginStore.user().id
+    }
     return (
       <div className="friend-activity">
-        <MainCommentList messages={this.state.messages} />
+        <MainCommentList messages={this.state.messages} wall={true} profileId={id}/>
       </div>
     )
   }

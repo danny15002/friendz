@@ -22,7 +22,9 @@ var CommentForm = React.createClass({
 
     ApiUtil.request({url: "api/comments",
                     method: 'POST',
-                    data: {comment: comment},
+                    data: {comment: comment,
+                           wall: this.props.wall,
+                           profile_id: this.props.profileId},
                     constant: constant})
     this.setState({value: ""})
   },

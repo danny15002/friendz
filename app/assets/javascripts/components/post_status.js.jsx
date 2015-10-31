@@ -18,8 +18,12 @@ var PostStatusForm = React.createClass ({
                  from_id: from_id,
                  body: this.state.value,
                  public: true};
-    ApiUtil.createMessage(message, FriendzConstants.WALL_POST_CREATED);
-    // console.log(message);
+
+    request = {url: "api/messages",
+               method: "POST",
+               data: {message: message, wall: true},
+               constant: FriendzConstants.WALL_POST_CREATED};
+    ApiUtil.request(request)
     this.setState({value: ""})
   },
 

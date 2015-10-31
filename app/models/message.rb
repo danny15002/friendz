@@ -29,7 +29,7 @@ class Message < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, as: :likeable, dependent: :destroy
 
-  def self.get_wall_posts(id)
+  def self.get_wall_posts(current_user_id, to_id)
     messages = Message.connection.select_all("
       SELECT
         messages.id,
@@ -38,7 +38,7 @@ class Message < ActiveRecord::Base
         messages.body,
         COUNT( DISTINCT likes.id) AS likes,
         CASE WHEN likes.id IS NULL THEN FALSE ELSE TRUE END AS liked,
-        CASE WHEN likes.user_id = #{id} THEN likes.id ELSE NULL END AS \"myLikeId\",
+        CASE WHEN likes.user_id = #{current_user_id} THEN likes.id ELSE NULL END AS \"myLikeId\",
         'Message' AS type,
         messages.created_at AS \"createdAt\",
         COUNT(comments.id) AS comments
@@ -60,7 +60,7 @@ class Message < ActiveRecord::Base
         (likes.likeable_type = 'Message' OR likes.likeable_type IS NULL) AND
         (comments.commentable_type = 'Message' OR
         comments.commentable_type IS NULL) AND
-        (recipients.id = #{id} OR authors.id = #{id}) AND
+        (recipients.id = #{to_id} OR authors.id = #{to_id}) AND
         messages.public = true
       GROUP BY
         messages.id, likes.id, authors.username, recipients.username,
