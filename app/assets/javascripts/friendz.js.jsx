@@ -39,8 +39,9 @@ var routes = (
       <Route path="Locations" component={Locations}/>
       <Route path="Friends" component={FriendList}/>
       <Route path="Requests" component={Requests} />
+      <Route path="Notifications" component={Notifications}></Route>
       <Route path="User/:userId" component={Profile}/>
-      <Route path="User/:userId/Friends" component={FriendList}/>
+      <Route path="User/:userId/Friends" component={Friends}/>
       <Route path="User/:userId/Pictures" component={PictureViewer}/>
     </Route>
   </Router>

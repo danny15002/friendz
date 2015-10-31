@@ -682,3 +682,18 @@ button {
   background: red;
   cursor:pointer;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+.friends {
+  float: left;
+  width: 80%;
+  height: auto;
+
+}
+
+.friends:after {
+  content: "";
+  display:block;
+  clear: both;
+}
