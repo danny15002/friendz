@@ -32,8 +32,13 @@
     dispatcherID: friendzDispatcher.register( function(payload) {
       switch(payload.actionType) {
         case FriendzConstants.COMMENTS_RECEIVED:
+        console.log("comment store comments received")
           setComments(payload.response);
           CommentStore.emit(FriendzConstants.COMMENTS_RECEIVED);
+          break;
+        case FriendzConstants.INNER_POST_CREATED_OR_CHANGED:
+          setComments(payload.response);
+          CommentStore.emit(FriendzConstants.INNER_POST_CREATED_OR_CHANGED);
           break;
       }
     })

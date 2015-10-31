@@ -16,7 +16,7 @@ var CommentForm = React.createClass({
     var constant = FriendzConstants.WALL_POST_CREATED; // TODO: WALL POST COMMENTED ON IN THIS CASE, NEED MORE GENERAL CONSTANT NAME
 
     if (this.props.commentableType === "Comment") {
-      constant = "";
+      constant = FriendzConstants.INNER_POST_CREATED_OR_CHANGED;
     }
 
     ApiUtil.request({url: "api/comments",

@@ -7,20 +7,9 @@ var Comment = React.createClass({
     }
     return {formShowing: false, subCommentsShowing: false}
   },
-  componentDidMount: function () {
-    // if this.props.type === 'Message'
-
-
-  },
-  componentWillUnmount: function () {
-    COMMENT_CONSTANT = FriendzConstants.COMMENT_CREATED + "_ON_" + this.props.message.type + this.props.message.id;
-    CommentStore.removeChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.setSubComments);
-    MessageStore.removeChangeListener(COMMENT_CONSTANT, this.fetchSubComments);
-    MessageStore.removeChangeListener(FriendzConstants.COMMENT_CREATED, this.fetchSubComments);
-
-  },
   componentWillReceiveProps: function (nextProps) {
-    if (nextProps.message.comments === 0) {
+
+    if (parseInt(nextProps.message.comments) === 0) {
       this.subText = "(No Replies)"
     } else {
       this.subText = this.state.subCommentsShowing ? "Hide Replies" : "View Replies"
@@ -36,23 +25,6 @@ var Comment = React.createClass({
 
   setSubComments: function () {
     this.setState({subComments: CommentStore.getComments(this.props.message.id, this.props.message.type)});
-  },
-
-  fetchSubComments: function () {
-    request={url: 'api/comments',
-             method: 'GET',
-             data: {commentable_type: this.props.message.type,
-                    commentable_id: this.props.message.id},
-             constant: FriendzConstants.COMMENTS_RECEIVED};
-    ApiUtil.request(request);
-  },
-  componentWillReceiveProps: function (nextProps) {
-    if (nextProps.message.comments.length === 0) {
-      this.subText = "(No Replies)"
-    }
-    if (nextProps.message.comments.length > 0) {
-      this.subText = "View Replies"
-    }
   },
   subComments: function (comments, key) {
     if (this.props.level === 2) {
@@ -95,7 +67,7 @@ var Comment = React.createClass({
   },
   handleLike: function () {
     var liked = this.props.message.liked === 't';
-    var constant = FriendzConstants.COMMENT_CREATED;
+    var constant = FriendzConstants.INNER_POST_CREATED_OR_CHANGED; // TODO: expects comments in the response
     if (this.props.message.type === "Message") {
       constant = FriendzConstants.WALL_POST_LIKE;
     }

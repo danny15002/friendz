@@ -4,15 +4,26 @@ var SubCommentList = React.createClass({
     return {comments: []}
   },
   componentDidMount: function () {
-    CommentStore.addChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
-    CommentStore.addChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
+    CommentStore.addChangeListener(
+      FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
+    CommentStore.addChangeListener(
+      FriendzConstants.INNER_POST_CREATED_OR_CHANGED, this.ifInnerPostsChange);
+      // TODO: check if subcomments in view to check callback to update parent children also
   },
   componentWillUnmount: function () {
-    CommentStore.removeChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
-    CommentStore.removeChangeListener(FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
+    CommentStore.removeChangeListener(
+      FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
+    CommentStore.removeChangeListener(
+      FriendzConstants.INNER_POST_CREATED_OR_CHANGED, this.ifInnerPostsChange);
   },
 
   fetchCommentList: function () {
+    type = this.props.type;
+    c_id = parseInt(this.props.c_id);
+    this.setState({comments: CommentStore.getComments(c_id, type)});
+  },
+
+  ifInnerPostsChange: function () {
     type = this.props.type;
     c_id = parseInt(this.props.c_id);
     this.setState({comments: CommentStore.getComments(c_id, type)});

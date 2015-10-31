@@ -20,10 +20,11 @@ class Comment < ActiveRecord::Base
 
   has_many :likes, as: :likeable, dependent: :destroy
 
-  def self.get_comments(commentable_id, id)
+  def self.get_comments(commentable_id, commentable_type, id)
     Comment.connection.select_all("
       SELECT
         comments.id, COUNT(comments2) AS comments, COUNT(likes) AS likes,
+        comments.commentable_id,
         authors.username AS author,
         pictures.pic_url as \"profPic\",
         comments.body,
@@ -45,12 +46,24 @@ class Comment < ActiveRecord::Base
       JOIN
         pictures ON profile_pictures.picture_id = pictures.id
       WHERE
-        (comments.commentable_id = #{commentable_id})
+        (comments.commentable_id = #{commentable_id} AND
+         comments.commentable_type = '#{commentable_type}')
       GROUP BY
         comments.id, authors.username, pictures.pic_url, likes.id
       ORDER BY
         comments.created_at
     ")
+  end
+
+  def self.get_siblings(comment_id)
+    commented_on = Comment.connection.select_all("
+      SELECT
+        commentable_id, commentable_type
+      FROM
+        comments
+      WHERE
+        id = #{comment_id}
+    ").first
   end
 
   def number_likes
