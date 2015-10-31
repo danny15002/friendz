@@ -18,7 +18,7 @@ class Api::CommentsController < ApplicationController
 
     if @comment.save
       if @comment.commentable_type == 'Message'
-        if params[:wall]
+        if params[:wall] == 'true'
           response[:messages] = Message.get_wall_posts(id, params[:profile_id])
         else
           response[:messages] = Message.get_newsfeed(id)
@@ -60,7 +60,7 @@ class Api::CommentsController < ApplicationController
     response = {}
 
     if comment.commentable_type == 'Message'
-      if params[:wall]
+      if params[:wall] == 'true'
         response[:messages] = Message.get_wall_posts(id, params[:profile_id])
       else
         response[:messages] = Message.get_newsfeed(id)

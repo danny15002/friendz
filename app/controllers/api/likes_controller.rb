@@ -9,7 +9,7 @@ class Api::LikesController < ApplicationController
       response = {}
 
       if @like.likeable_type == 'Message'
-        if params[:wall]
+        if params[:wall] == 'true'
           response = Message.get_wall_posts(id, params[:profile_id])
         else
           response = Message.get_newsfeed(id)
@@ -42,7 +42,7 @@ class Api::LikesController < ApplicationController
     response = {}
 
     if like.likeable_type == 'Message'
-      if params[:wall]
+      if params[:wall] == 'true'
         response = Message.get_wall_posts(id, params[:profile_id])
       else
         response = Message.get_newsfeed(id)
