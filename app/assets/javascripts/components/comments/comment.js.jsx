@@ -91,11 +91,10 @@ var Comment = React.createClass({
 
   delete: function () {
 
-    var constant = FriendzConstants.COMMENT_CREATED;
+    var constant = FriendzConstants.INNER_POST_CREATED_OR_CHANGED;
     if (this.props.message.type === "Message") {
       constant = FriendzConstants.WALL_POST_CREATED;
     }
-
     request={url: 'api/' + this.props.message.type.toLowerCase() + 's/' + this.props.message.id,
              method: 'DELETE',
              data: {},
@@ -108,16 +107,9 @@ var Comment = React.createClass({
   },
 
   clickViewReplies: function () {
-    // debugger
     if (parseInt(this.props.message.comments) > 0 ) {
       if (!this.state.subCommentsShowing) {
         this.setState({subCommentsShowing: !this.state.subCommentsShowing});
-        request={url: 'api/comments',
-                 method: 'GET',
-                 data: {commentable_type: this.props.message.type,
-                        commentable_id: this.props.message.id},
-                 constant: FriendzConstants.COMMENTS_RECEIVED};
-        ApiUtil.request(request);
         this.subText = "Hide Replies"
       } else if (this.state.subCommentsShowing) {
         this.setState({subCommentsShowing: !this.state.subCommentsShowing});

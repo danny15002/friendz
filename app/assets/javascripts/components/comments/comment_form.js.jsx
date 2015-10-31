@@ -13,9 +13,10 @@ var CommentForm = React.createClass({
       user_id: LoginStore.user().id
     };
 
-    // var constant = FriendzConstants.WALL_POST_CREATED; // TODO: WALL POST COMMENTED ON IN THIS CASE, NEED MORE GENERAL CONSTANT NAME
+    var constant = FriendzConstants.WALL_POST_CREATED; // TODO: WALL POST COMMENTED ON IN THIS CASE, NEED MORE GENERAL CONSTANT NAME
 
-    if (this.props.commentableType === "Comment") {
+    if (this.props.commentableType === "Comment" ||
+        this.props.commentableType === "Picture") {
       constant = FriendzConstants.INNER_POST_CREATED_OR_CHANGED;
     }
 

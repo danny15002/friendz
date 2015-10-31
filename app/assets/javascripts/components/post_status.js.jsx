@@ -8,7 +8,7 @@ var PostStatusForm = React.createClass ({
     this.setState({value: event.target.value});
   },
   submitForm: function() {
-    
+
     var from_id = LoginStore.user().id
     var to_id = from_id;
     if (this.props.userId) {
@@ -18,7 +18,7 @@ var PostStatusForm = React.createClass ({
                  from_id: from_id,
                  body: this.state.value,
                  public: true};
-    ApiUtil.createMessage(message, FriendzConstants.STATUS_POSTED);
+    ApiUtil.createMessage(message, FriendzConstants.WALL_POST_CREATED);
     // console.log(message);
     this.setState({value: ""})
   },

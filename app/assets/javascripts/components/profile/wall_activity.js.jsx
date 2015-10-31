@@ -4,10 +4,9 @@ var WallActivity = React.createClass( {
   },
   componentDidMount: function () {
     MessageStore.addChangeListener(FriendzConstants.MESSAGES_RECEIVED, this.getMessages);
-    MessageStore.addChangeListener(FriendzConstants.COMMENT_CREATED, this.fetchMessages);
-    MessageStore.addChangeListener(FriendzConstants.STATUS_POSTED, this.fetchMessages);
-    MessageStore.addChangeListener(FriendzConstants.COMMENT_LIKED, this.fetchMessages);
-    MessageStore.addChangeListener(FriendzConstants.COMMENT_UNLIKED, this.fetchMessages);
+    MessageStore.addChangeListener(FriendzConstants.WALL_POST_CREATED, this.ifWallPostsChange); // TODO: combine created and liked listeners into 1
+    MessageStore.addChangeListener(FriendzConstants.WALL_POST_LIKE, this.ifWallPostsChange);
+    MessageStore.addChangeListener(FriendzConstants.NEED_COMMENTS_ON_OUTER, this.ifCommentsChange);
 
     var id;
     if (this.props.userId !== undefined) {
@@ -20,11 +19,9 @@ var WallActivity = React.createClass( {
   },
   componentWillUnmount: function () {
     MessageStore.removeChangeListener(FriendzConstants.MESSAGES_RECEIVED, this.getMessages);
-    MessageStore.removeChangeListener(FriendzConstants.COMMENT_CREATED, this.fetchMessages);
-    MessageStore.removeChangeListener(FriendzConstants.STATUS_POSTED, this.fetchMessages);
-    MessageStore.removeChangeListener(FriendzConstants.COMMENT_LIKED, this.fetchMessages);
-    MessageStore.removeChangeListener(FriendzConstants.COMMENT_UNLIKED, this.fetchMessages);
-
+    MessageStore.removeChangeListener(FriendzConstants.WALL_POST_CREATED, this.ifWallPostsChange);
+    MessageStore.removeChangeListener(FriendzConstants.WALL_POST_LIKE, this.ifWallPostsChange);
+    MessageStore.removeChangeListener(FriendzConstants.NEED_COMMENTS_ON_OUTER, this.ifCommentsChange);
   },
   componentWillReceiveProps: function (nextProps) {
     var id = LoginStore.user().id
@@ -35,16 +32,13 @@ var WallActivity = React.createClass( {
 
   },
   getMessages: function () {
-    this.setState({messages: MessageStore.getMessages()})
+    this.setState({messages: MessageStore.getMessages()});
   },
-  fetchMessages: function () {
-    var id;
-    if (this.props.userId !== undefined) {
-      id = parseInt(this.props.userId);
-    } else {
-      id = LoginStore.user().id
-    }
-    ApiUtil.request({url: "api/messages/" + id, data: {public: true}, constant: FriendzConstants.MESSAGES_RECEIVED});
+  ifWallPostsChange: function () {
+    this.setState({messages: MessageStore.getMessages()});
+  },
+  ifCommentsChange: function () {
+
   },
   render: function () {
     return (

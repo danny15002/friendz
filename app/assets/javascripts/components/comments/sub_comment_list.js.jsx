@@ -8,9 +8,24 @@ var SubCommentList = React.createClass({
       FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
     CommentStore.addChangeListener(
       FriendzConstants.INNER_POST_CREATED_OR_CHANGED, this.ifInnerPostsChange);
-    // CommentStore.addChangeListener(
-    //     FriendzConstants.UPDATE_SUBCOMMENTS
-    //   )
+    request={url: 'api/comments',
+             method: 'GET',
+             data: {commentable_type: this.props.type,
+                    commentable_id: this.props.c_id},
+             constant: FriendzConstants.COMMENTS_RECEIVED};
+    ApiUtil.request(request);
+  },
+  componentWillReceiveProps: function (nextProps) {
+
+    if (nextProps.type !== this.props.type ||
+        nextProps.c_id != this.props.c_id) {
+      request={url: 'api/comments',
+               method: 'GET',
+               data: {commentable_type: nextProps.type,
+                      commentable_id: nextProps.c_id},
+               constant: FriendzConstants.COMMENTS_RECEIVED};
+      ApiUtil.request(request);
+    }
   },
   componentWillUnmount: function () {
     CommentStore.removeChangeListener(
@@ -26,7 +41,6 @@ var SubCommentList = React.createClass({
   },
 
   ifInnerPostsChange: function () {
-    console.log("sub comm callback")
     type = this.props.type;
     c_id = parseInt(this.props.c_id);
     this.setState({comments: CommentStore.getComments(c_id, type)});

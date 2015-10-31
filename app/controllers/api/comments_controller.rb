@@ -18,7 +18,7 @@ class Api::CommentsController < ApplicationController
 
     if @comment.save
       if @comment.commentable_type == 'Message'
-        response = Message.get_newsfeed(id)
+        response[:messages] = Message.get_newsfeed(id)
       end
       if @comment.commentable_type == 'Comment'
         # find all [subcomments] of the [comment that was commented on]'s [parent]
@@ -33,12 +33,15 @@ class Api::CommentsController < ApplicationController
           id)
       end
       # Find all the subcomments of the comment being commented on
-      if @comment.commentable_type == 'Comment'
-        response[:subcomments] = Comment.get_comments(
-          params[:comment][:commentable_id],
-          params[:comment][:commentable_type],
-          id)
-      end
+      # NOTE: need logic to only do this if necessary
+      response[:subcomments] = {}
+      response[:subcomments][:commentableId] = params[:comment][:commentable_id]
+      response[:subcomments][:type] = params[:comment][:commentable_type]
+      response[:subcomments][:comments] = Comment.get_comments(
+        params[:comment][:commentable_id],
+        params[:comment][:commentable_type],
+        id)
+
       render json: response
     else
       render json: "failed"
@@ -46,8 +49,38 @@ class Api::CommentsController < ApplicationController
   end
 
   def destroy
-    Comment.where(id: params[:id]).destroy_all
-    render json: {}
+    comment = Comment.find(params[:id])
+    Comment.destroy(comment.id)
+
+    id = current_user.id
+    response = {}
+
+    if comment.commentable_type == 'Message'
+      response[:messages] = Message.get_newsfeed(id)
+    end
+    if comment.commentable_type == 'Comment'
+      # find all [subcomments] of the [comment that was commented on]'s [parent]
+      # in other words find all the siblings of the comment being commented on
+      commented_on = Comment.get_siblings(comment.commentable_id)
+
+      response[:commentableId] = commented_on["commentable_id"]
+      response[:type] = commented_on["commentable_type"]
+      response[:comments] = Comment.get_comments(
+        commented_on["commentable_id"],
+        commented_on["commentable_type"],
+        id)
+    end
+    # Find all the subcomments of the comment being commented on
+    # NOTE: need logic to only do this if necessary
+    response[:subcomments] = {}
+    response[:subcomments][:commentableId] = comment.commentable_id
+    response[:subcomments][:type] = comment.commentable_type
+    response[:subcomments][:comments] = Comment.get_comments(
+      comment.commentable_id,
+      comment.commentable_type,
+      id)
+
+    render json: response
   end
 
   private

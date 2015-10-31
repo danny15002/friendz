@@ -16,8 +16,8 @@
     getMessages: function () {
       return _messages.slice(0);
     },
-    getMessageComments: function (id) {
-
+    setMessages: function (messages) {
+      _messages = messages;
     },
     addChangeListener: function (changeEvent, callback) {
       this.on(changeEvent, callback);
@@ -39,7 +39,16 @@
           MessageStore.emit(FriendzConstants.STATUS_POSTED);
           break;
         case FriendzConstants.WALL_POST_CREATED:
-          setMessages(payload.response);
+
+          if (payload.response.messages) {
+            setMessages(payload.response.messages)
+          } else {
+            setMessages(payload.response);
+          }
+          if (payload.response.subcomments) {
+            CommentStore.setComments(payload.response.subcomments)
+            CommentStore.emit(FriendzConstants.INNER_POST_CREATED_OR_CHANGED)
+          }
           MessageStore.emit(FriendzConstants.WALL_POST_CREATED);
           break;
         case FriendzConstants.WALL_POST_LIKE:

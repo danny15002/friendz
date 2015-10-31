@@ -19,6 +19,11 @@
       }
     },
 
+    setComments: function (comments) {
+      _comments[comments.type] = _comments[comments.type] || {};
+      _comments[comments.type][comments.commentableId] = comments.comments;
+    },
+
     getCommentsHash: function () {
       return _comments;
     },
@@ -37,10 +42,18 @@
           CommentStore.emit(FriendzConstants.COMMENTS_RECEIVED);
           break;
         case FriendzConstants.INNER_POST_CREATED_OR_CHANGED:
-          // TODO: check if children also came back
-          // TODO: figure out how to bring back children if subcomment list is showing
-          setComments(payload.response);
-          CommentStore.emit(FriendzConstants.INNER_POST_CREATED_OR_CHANGED);
+          debugger
+          if (payload.response.messages) {
+            MessageStore.setMessages(payload.response.messages)
+            MessageStore.emit(FriendzConstants.WALL_POST_CREATED);
+          }
+          if (payload.response.comments) {
+            setComments(payload.response);
+          }
+          if (payload.response.subcomments) {
+            CommentStore.setComments(payload.response.subcomments)
+          }
+          CommentStore.emit(FriendzConstants.INNER_POST_CREATED_OR_CHANGED)
           break;
       }
     })

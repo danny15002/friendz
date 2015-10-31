@@ -85,7 +85,11 @@ var PictureViewer = React.createClass({
       commentSection = (
         <div>
           <div className="picture-comments">
-            <MainCommentList messages={comments} />
+            <SubCommentList
+              level={2}
+              type={'Picture'}
+              c_id={picture.id}
+              />
           </div>
           <CommentForm id={id} commentableType={"Picture"} />
         </div>
