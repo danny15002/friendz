@@ -14,7 +14,6 @@ var Friends = React.createClass({
     UserStore.removeChangeListener(FriendzConstants.FRIENDS_RECEIVED, this.getFriends);
   },
   // componentWillReceiveProps: function (nextProps) {
-  //   debugger;
   //   UserStore.addChangeListener(FriendzConstants.FRIENDS_RECEIVED, this.getFriends);
   //   ApiUtil.fetch({url: "api/friendships",
   //                  data: {id: this.props.params.userId},
@@ -37,16 +36,18 @@ var Friends = React.createClass({
 
     return (
       <div>
-        <div onClick={this.handleClick} className="friends">
+        <div style={{marginTop: "20px", padding: "10px"}} onClick={this.handleClick} className="friends">
+          <h1 style={{paddingLeft: '10px'}}> Friends </h1>
           {this.state.friends.map(function (friend){
             return (
               <div
                 id={friend.friend_id}
                 key={friend.id}
                 selected={false}
-                className={"nav nav-friend"}
-                style={{float: "left", height: "100px", width: "100px"}}>
-                {friend.friend}
+                className={"friendbox"}
+                style={{margin: "10px", float: "left", height: "100", width: "200"}}>
+                <ProfilePicture source={friend.picUrl} style={{height: "100px", width: "100px"}} />
+                <div>{friend.friend}</div>
               </div>
             )
           })}

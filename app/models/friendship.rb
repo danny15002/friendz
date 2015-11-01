@@ -26,4 +26,25 @@ class Friendship < ActiveRecord::Base
     class_name: "User"
   )
 
+  def self.get_friends(id)
+
+    response = Friendship.connection.select_all("
+      SELECT
+        friendships.id,
+        users.username AS friend,
+        friendships.friend_id,
+        pictures.pic_url AS \"picUrl\"
+      FROM
+        friendships
+      JOIN
+        users ON users.id = friendships.friend_id
+      JOIN
+        profile_pictures ON profile_pictures.user_id = users.id
+      JOIN
+        pictures ON pictures.id = profile_pictures.picture_id
+      WHERE
+        friendships.user_id = #{id}
+    ")
+  end
+
 end

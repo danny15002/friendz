@@ -3,16 +3,18 @@ class Api::FriendshipsController < ApplicationController
   def index
 
     if params[:id]
-      @friends = Friendship.all.where(user_id: params[:id])
+      id = current_user.id
+      response = Friendship.get_friends(params[:id])
     else
-      @friends = Friendship.all.where(user_id: current_user.id).includes(:user, :friend)
+      id = current_user.id
+      response = Friendship.get_friends(id)
     end
 
-    render :index
+    render json: response
   end
 
   def create
-    
+
     @friendship = Friendship.create(friend_params)
     @inverse_friendship = Friendship.create(user_id: @friendship.friend_id, friend_id: @friendship.user_id)
 

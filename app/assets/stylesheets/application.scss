@@ -697,3 +697,13 @@ button {
   display:block;
   clear: both;
 }
+
+.friendbox {
+  border: 1px solid red;
+}
+
+.friendbox:hover {
+  background: red;
+  color: white;
+  cursor: pointer;
+}
