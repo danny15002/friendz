@@ -5,8 +5,6 @@ var MessageForm = React.createClass( {
   componentDidMount: function () {
     var userId = parseInt(this.props.params.userId)
     this.setState({recipientId: userId});
-    var node = this.getDOMNode();
-    node.scrollTop = node.scrollHeight;
   },
   componentWillReceiveProps: function (nextProps) {
     var userId = parseInt(nextProps.params.userId)
@@ -30,7 +28,7 @@ var MessageForm = React.createClass( {
       return <div></div>
     }
 
-    var name = UserStore.getFriendById(this.state.recipientId).friend
+    var name = UserStore.getFriendById((this.state.recipientId.toString())).friend
     var value= this.state.value;
     return (
       <div className={"message-form"}>

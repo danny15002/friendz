@@ -3,7 +3,6 @@ class Api::FriendshipsController < ApplicationController
   def index
 
     if params[:id]
-      id = current_user.id
       response = Friendship.get_friends(params[:id])
     else
       id = current_user.id

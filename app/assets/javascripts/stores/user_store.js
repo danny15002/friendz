@@ -63,6 +63,7 @@
           UserStore.emit(FriendzConstants.CURRENT_USER_RECEIVED);
           break;
         case FriendzConstants.FRIENDS_RECEIVED:
+        debugger
           setCurrentFriends(payload.response);
           UserStore.emit(FriendzConstants.FRIENDS_RECEIVED);
           break;
