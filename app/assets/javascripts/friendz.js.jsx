@@ -36,7 +36,6 @@ var routes = (
       <Route path="Pictures" component={PictureViewer}/>
       <Route path="Profile" component={Profile}/>
       <Route path="Account" component={Account}/>
-      <Route path="Locations" component={Locations}/>
       <Route path="Friends" component={FriendList}/>
       <Route path="Requests" component={Requests} />
       <Route path="Notifications" component={Notifications}></Route>
@@ -47,6 +46,7 @@ var routes = (
   </Router>
 )
 
+      // <Route path="Locations" component={Locations}/>
 
 $(function () {
   React.render( routes, document.getElementById("application"));
