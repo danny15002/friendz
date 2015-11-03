@@ -18,11 +18,6 @@ var LeftBar = React.createClass ({
             <span className={"glyphicon glyphicon-picture"}></span> Pictures
           </div>
         </a>
-        <a href={"#/Locations"}>
-          <div className={"nav nav-locations"}>
-            <span className={"glyphicon glyphicon-globe"}></span> Locations
-          </div>
-        </a>
         <a href={"#/Requests"}>
           <div className={"nav nav-requests"}>
             <span className={"glyphicon glyphicon-user"}></span><span className={"glyphicon glyphicon-user"}></span> Friend Requests
@@ -37,6 +32,11 @@ var LeftBar = React.createClass ({
     )
   }
 })
+        // <a href={"#/Locations"}>
+        //   <div className={"nav nav-locations"}>
+        //     <span className={"glyphicon glyphicon-globe"}></span> Locations
+        //   </div>
+        // </a>
 
 var TopBar = React.createClass ({
   mixins: [ReactRouter.History],
@@ -60,10 +60,10 @@ var TopBar = React.createClass ({
           <OmniSearch />
           <a href={"#/"} className={"nav-messages"}><div className="top-menu-div"><span className={"glyphicon glyphicon-home"}></span> Home</div></a>
           <a href={"#/Profile"} className={"nav-events"}><div className="top-menu-div"><span className={"glyphicon glyphicon-user"}></span> Profile</div></a>
-          <a href={"#/Account"} className={"nav-pictures"}><div className="top-menu-div"><span className={"glyphicon glyphicon-th"}></span> Account</div></a>
           <a onClick={this.handleClick} className={"nav-logout"}><div className="top-menu-div"><span className={"glyphicon glyphicon-off"}></span> Logout</div></a>
         </div>
       </div>
     )
   }
+          // <a href={"#/Account"} className={"nav-pictures"}><div className="top-menu-div"><span className={"glyphicon glyphicon-th"}></span> Account</div></a>
 })
