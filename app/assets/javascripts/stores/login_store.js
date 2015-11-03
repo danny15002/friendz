@@ -83,9 +83,15 @@
           setMyFriends(payload.response);
           LoginStore.emit(FriendzConstants.MY_FRIENDS_RECEIVED);
           break;
+        case FriendzConstants.UPDATE_LOGIN_USER:
+          
+          _jwt = payload.response.id_token;
+          _user = jwt_decode(_jwt);
+          LoginStore.emit(FriendzConstants.UPDATE_LOGIN_USER);
         default:
           LoginStore.emit(payload.actionType)
           break;
+
       };
     })
   });

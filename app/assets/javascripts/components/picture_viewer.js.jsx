@@ -69,7 +69,7 @@ var PictureViewer = React.createClass({
   },
 
   makeProfilePic: function () {
-    constant = "";
+    constant = FriendzConstants.UPDATE_LOGIN_USER;
     request={url: 'api/profile_pictures/' + this.state.currentPicIdx,
              method: 'PATCH',
              data: {profile_picture: {picture_id:

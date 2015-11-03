@@ -4,7 +4,9 @@ class Api::ProfilePicturesController < ApplicationController
     id = current_user.id
     @pic = ProfilePicture.where(user_id: id).first
     if @pic.update_attributes(profile_picture_params)
-      render json: {}
+      payload = {id: current_user.id, username: current_user.username, profPic: current_user.profile_picture.pic_url}
+      token = JWT.encode payload, nil, 'none'
+      render json: {id_token: token}
     else
       render json: {}
     end
