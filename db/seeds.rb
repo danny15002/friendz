@@ -88,29 +88,109 @@ end
   )
 end
 
-base = "http://assets22.pokemon.com/assets/cms2/img/pokedex/full/"
+# base = "http://assets22.pokemon.com/assets/cms2/img/pokedex/full/"
+# base = "file:///Users/SilverSurfer/Documents/stockPhotos/photo"
+#
+# 28.times do |i|
+#   num = sprintf '%03d', ((i % 19) + 1)
+#   Picture.create(
+#     user_id: i,
+#     pic_url: base + num + ".jpg"
+#   )
+# end
 
-27.times do |i|
-  num = sprintf '%03d', i + 1
-  Picture.create(
-    user_id: i,
-    pic_url: base + num + ".png"
-  )
-end
+Picture.create(user_id: 1, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537517/photo019.jpg")
+Picture.create(user_id: 2, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537513/photo018.jpg")
+Picture.create(user_id: 3, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537511/photo017.jpg")
+Picture.create(user_id: 4, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537509/photo016.jpg")
+Picture.create(user_id: 5, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537506/photo015.jpg")
+Picture.create(user_id: 6, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537500/photo013.jpg")
+Picture.create(user_id: 7, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537492/photo012.jpg")
+Picture.create(user_id: 8, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537486/photo010.jpg")
+Picture.create(user_id: 9, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537481/photo009.jpg")
+Picture.create(user_id: 10, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537513/photo018.jpg")
+Picture.create(user_id: 11, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537479/photo008.jpg")
+Picture.create(user_id: 12, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537470/photo005.jpg")
+Picture.create(user_id: 13, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537468/photo004.jpg")
+Picture.create(user_id: 14, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537465/photo003.jpg")
+Picture.create(user_id: 15, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537463/photo002.jpg")
+Picture.create(user_id: 16, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537472/photo006.jpg")
+Picture.create(user_id: 17, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537460/photo001.jpg")
+Picture.create(user_id: 18, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537463/photo002.jpg")
+Picture.create(user_id: 19, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537465/photo003.jpg")
+Picture.create(user_id: 21, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537460/photo001.jpg")
+Picture.create(user_id: 22, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537468/photo004.jpg")
+Picture.create(user_id: 23, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537513/photo018.jpg")
+Picture.create(user_id: 24, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537492/photo012.jpg")
+Picture.create(user_id: 25, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537489/photo011.jpg")
+Picture.create(user_id: 26, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537472/photo006.jpg")
+Picture.create(user_id: 27, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537476/photo007.jpg")
+Picture.create(user_id: 1, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537517/photo019.jpg")
+Picture.create(user_id: 2, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537513/photo018.jpg")
+Picture.create(user_id: 3, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537511/photo017.jpg")
+Picture.create(user_id: 4, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537509/photo016.jpg")
+Picture.create(user_id: 5, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537506/photo015.jpg")
+Picture.create(user_id: 6, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537500/photo013.jpg")
+Picture.create(user_id: 7, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537492/photo012.jpg")
+Picture.create(user_id: 8, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537486/photo010.jpg")
+Picture.create(user_id: 9, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537481/photo009.jpg")
+Picture.create(user_id: 10, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537513/photo018.jpg")
+Picture.create(user_id: 11, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537479/photo008.jpg")
+Picture.create(user_id: 12, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537470/photo005.jpg")
+Picture.create(user_id: 13, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537468/photo004.jpg")
+Picture.create(user_id: 14, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537465/photo003.jpg")
+Picture.create(user_id: 15, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537463/photo002.jpg")
+Picture.create(user_id: 16, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537472/photo006.jpg")
+Picture.create(user_id: 17, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537460/photo001.jpg")
+Picture.create(user_id: 18, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537463/photo002.jpg")
+Picture.create(user_id: 19, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537465/photo003.jpg")
+Picture.create(user_id: 21, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537460/photo001.jpg")
+Picture.create(user_id: 22, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537468/photo004.jpg")
+Picture.create(user_id: 23, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537513/photo018.jpg")
+Picture.create(user_id: 24, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537492/photo012.jpg")
+Picture.create(user_id: 25, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537489/photo011.jpg")
+Picture.create(user_id: 26, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537472/photo006.jpg")
+Picture.create(user_id: 27, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537476/photo007.jpg")
+Picture.create(user_id: 1, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537517/photo019.jpg")
+Picture.create(user_id: 2, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537513/photo018.jpg")
+Picture.create(user_id: 3, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537511/photo017.jpg")
+Picture.create(user_id: 4, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537509/photo016.jpg")
+Picture.create(user_id: 5, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537506/photo015.jpg")
+Picture.create(user_id: 6, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537500/photo013.jpg")
+Picture.create(user_id: 7, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537492/photo012.jpg")
+Picture.create(user_id: 8, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537486/photo010.jpg")
+Picture.create(user_id: 9, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537481/photo009.jpg")
+Picture.create(user_id: 10, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537513/photo018.jpg")
+Picture.create(user_id: 11, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537479/photo008.jpg")
+Picture.create(user_id: 12, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537470/photo005.jpg")
+Picture.create(user_id: 13, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537468/photo004.jpg")
+Picture.create(user_id: 14, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537465/photo003.jpg")
+Picture.create(user_id: 15, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537463/photo002.jpg")
+Picture.create(user_id: 16, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537472/photo006.jpg")
+Picture.create(user_id: 17, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537460/photo001.jpg")
+Picture.create(user_id: 18, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537463/photo002.jpg")
+Picture.create(user_id: 19, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537465/photo003.jpg")
+Picture.create(user_id: 21, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537460/photo001.jpg")
+Picture.create(user_id: 22, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537468/photo004.jpg")
+Picture.create(user_id: 23, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537513/photo018.jpg")
+Picture.create(user_id: 24, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537492/photo012.jpg")
+Picture.create(user_id: 25, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537489/photo011.jpg")
+Picture.create(user_id: 26, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537472/photo006.jpg")
+Picture.create(user_id: 27, pic_url: "http://res.cloudinary.com/danny15002/image/upload/v1446537476/photo007.jpg")
 
-100.times do
-  user = rand(1..25)
-  pic = rand(1..720)
-  num = sprintf '%03d', pic
-  Picture.create(
-    user_id: user,
-    pic_url: base + num + ".png"
-  )
-end
+# 100.times do
+#   user = rand(1..25)
+#   pic = rand(1..720)
+#   num = sprintf '%03d', pic
+#   Picture.create(
+#     user_id: user,
+#     pic_url: base + num + ".png"
+#   )
+# end
 
 26.times do |i|
     ProfilePicture.create(
-      user_id: i,
-      picture_id: i
+      user_id: i + 1,
+      picture_id: i + 1
     )
 end

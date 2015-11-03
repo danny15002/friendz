@@ -67,6 +67,17 @@ var PictureViewer = React.createClass({
     ApiUtil.uploadPicture(picture);
     this.setState({picUrl: "", inactive: true});
   },
+
+  makeProfilePic: function () {
+    constant = "";
+    request={url: 'api/profile_pictures/' + this.state.currentPicIdx,
+             method: 'PATCH',
+             data: {profile_picture: {picture_id:
+               this.state.pictures[this.state.currentPicIdx].id}},
+             constant: constant}
+    ApiUtil.request(request)
+  },
+
   render: function () {
     var source;
     var picture;
@@ -107,9 +118,10 @@ var PictureViewer = React.createClass({
           {this.rightArrow()}
         </div>
         <div>
-          <h5 style={{marginLeft: "15px", display: "inline-block", marginRight: "15px"}} > Select the image you want to upload, then click Upload!</h5>
+          <h5 style={{marginLeft: "15px", display: "inline-block", marginRight: "15px"}} > Select an Image, then click Upload!</h5>
           <button style={{width:"auto", marginRight: "15px"}} onClick={this.upload} id="upload_widget_opener">Select an Image</button>
           <button onClick={this.submitForm} disabled={this.state.inactive}>Upload</button>
+          <button style={{marginLeft: "15px", width: "auto"}} onClick={this.makeProfilePic} >Make profile Pic</button>
         </div>
         {commentSection}
       </div>
