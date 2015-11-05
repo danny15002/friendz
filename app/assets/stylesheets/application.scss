@@ -178,14 +178,15 @@ header h2 {
 
 .bar {
   width: 20%;
-  height:92vh;
+  height: 700px;//calc(100% - 60px);
   background-color: #880000;
   overflow-y: scroll;
 }
 
 .left-bar {
   float: left;
-  background-color: white;
+  background-color: #EEEEEE;
+  overflow: hidden;
 }
 
 .bar a {
@@ -196,6 +197,7 @@ header h2 {
 .bar a:hover {
   color: black;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .bar a:visited {
@@ -330,7 +332,7 @@ div.search-list {
 
   width: 92%;
   background: white;
-  border: solid 1px red;
+  border: solid 1px #880000;
 }
 
 .nav div {
@@ -340,7 +342,7 @@ div.search-list {
 }
 
 .nav:hover {
-  background: linear-gradient(to bottom right, #FF0000, #BB0000);
+  background: #880000;
   color: white;
 }
 
@@ -706,4 +708,16 @@ button {
   background: red;
   color: white;
   cursor: pointer;
+}
+
+//////prof picture
+
+.crop {
+    overflow: hidden;
+}
+
+.crop img {
+    width: 400px;
+    height: 300px;
+    margin: -75px 0 0 -100px;
 }

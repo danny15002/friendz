@@ -32,7 +32,7 @@ var PostStatusFormN = React.createClass ({
 
     return (
       <div style={{width: "90%"}} className={this.props.className + "status-form status-form-n"}>
-        <ProfilePicture source={LoginStore.user().profPic} style={{background: "white",height: "150px", width: "150px"}}/>
+        <ProfilePicture source={LoginStore.user().profPic} style={{overflow: "hidden",height: "150px", width: "150px"}}/>
         <div style={{float: "left", width: "calc(100% - 150px)"}}>
           <textarea
             style={{height: "114px", width: "100%"}}

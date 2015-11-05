@@ -58,7 +58,11 @@ var OmniSearch = React.createClass({
             {this.state.matches.map(function (match) {
               href = "#/User/" + match.id
               return (
-                 <li className={"search-result"}><a href={href}>{match.name}</a></li>
+                 <li className={"search-result"}>
+                   <a style={{width: "100%"}} href={href}>
+                     <div style={{color: "black", width: "100%", height: "100%"}}>{match.name}</div>
+                   </a>
+                 </li>
               )
             }.bind(this))}
           </ul>
