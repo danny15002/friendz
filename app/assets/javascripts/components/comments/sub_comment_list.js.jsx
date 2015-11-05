@@ -8,6 +8,7 @@ var SubCommentList = React.createClass({
       FriendzConstants.COMMENTS_RECEIVED, this.fetchCommentList);
     CommentStore.addChangeListener(
       FriendzConstants.INNER_POST_CREATED_OR_CHANGED, this.ifInnerPostsChange);
+      
     request={url: 'api/comments',
              method: 'GET',
              data: {commentable_type: this.props.type,
