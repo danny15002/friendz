@@ -20,10 +20,14 @@ class Comment < ActiveRecord::Base
 
   has_many :likes, as: :likeable, dependent: :destroy
 
+  # if all of the comments on a commentable_id are of type message it will exclude
+  # that comment
   def self.get_comments(commentable_id, commentable_type, id)
     Comment.connection.select_all("
       SELECT
-        comments.id, COUNT(comments2) AS comments, COUNT(likes) AS likes,
+        comments.id,
+        COALESCE(COUNT(CASE WHEN comments2.commentable_type = 'Comment' THEN comments2.id END), 0) AS comments,
+        COUNT(likes) AS likes,
         comments.commentable_id,
         authors.username AS author,
         pictures.pic_url as \"profPic\",
@@ -49,7 +53,8 @@ class Comment < ActiveRecord::Base
         (comments.commentable_id = #{commentable_id} AND
          comments.commentable_type = '#{commentable_type}')
       GROUP BY
-        comments.id, authors.username, pictures.pic_url, likes.id
+        comments.id, authors.username, pictures.pic_url, likes.id,
+        comments2.commentable_type
       ORDER BY
         comments.created_at
     ")
