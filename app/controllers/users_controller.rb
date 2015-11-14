@@ -15,8 +15,6 @@ class UsersController < ApplicationController
 
     if @user.save
       log_in!(@user)
-      payload = {id: current_user.id, username: current_user.username, prof_pic: current_user.profile_picture}
-      token = JWT.encode payload, nil, 'none'
 
       Friendship.create(
         friend_id: 1000,
@@ -32,8 +30,11 @@ class UsersController < ApplicationController
 
       ProfilePicture.create(
         user_id: current_user.id,
-        picture_id: 128
+        picture_id: 1
       )
+
+      payload = {id: current_user.id, username: current_user.username, profPic: current_user.profile_picture.pic_url}
+      token = JWT.encode payload, nil, 'none'
       render json: {id_token: token}
     else
       flash.now[:errors] = @user.errors.full_messages

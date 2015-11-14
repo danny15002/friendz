@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Friendz</title>
+  <title>
+    Friendz
+  </title>
+  <%= favicon_link_tag %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
@@ -13,7 +16,8 @@
 </head>
 
 <body>
-
+  <header>
+  </header>
   <div class = "main-container">
     <%= yield %>
   </div>

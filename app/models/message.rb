@@ -99,7 +99,6 @@ class Message < ActiveRecord::Base
         pictures ON profile_pictures.picture_id = pictures.id
       WHERE
         (likes.likeable_type = 'Message' OR likes.likeable_type IS NULL) AND
-        (comments.commentable_type = 'Message' OR comments.commentable_type IS NULL) AND
         (comments.commentable_type = 'Message' OR
         comments.commentable_type IS NULL) AND
         messages.public = true AND
