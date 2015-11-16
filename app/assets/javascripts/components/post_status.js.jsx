@@ -36,6 +36,7 @@ var PostStatusForm = React.createClass ({
           onChange={this.handleChange}
           className={"status-text"}
           placeholder={"Let your friends know what's up."}
+          style={{margin: "0px", height: "100px"}}
           value={value}>
         </textarea>
         <br></br>

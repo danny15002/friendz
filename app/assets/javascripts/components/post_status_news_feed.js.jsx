@@ -32,19 +32,22 @@ var PostStatusFormN = React.createClass ({
 
     return (
       <div style={{width: "90%"}} className={this.props.className + "status-form status-form-n"}>
-        <ProfilePicture source={LoginStore.user().profPic} style={{overflow: "hidden",height: "150px", width: "150px"}}/>
-        <div style={{float: "left", width: "calc(100% - 150px)"}}>
-          <textarea
-            style={{height: "114px", width: "100%"}}
-            onChange={this.handleChange}
-            className={"status-text"}
-            placeholder={"Let your friends know what's up."}
-            value={value}>
-          </textarea>
-          <br></br>
-          <br></br>
-          <button style={{width: "11%", position: "absolute", bottom: "3px", left: "88.6%"}} className={"status-button"} onClick={this.submitForm}>Post</button>
+        <div className={'post-label'} ><span className={"glyphicon glyphicon-pencil"}></span> Post Status</div>
+        <div className={"inner-post-box"}>
+          <ProfilePicture source={LoginStore.user().profPic} style={{overflow: "hidden",height: "80px", width: "80px"}}/>
+          <div style={{float: "left", width: "calc(100% - 90px)"}}>
+            <textarea
+              style={{paddingLeft: "10px", paddingTop: "10px", width: "100%"}}
+              onChange={this.handleChange}
+              className={"status-text"}
+              placeholder={"Let your friends know what's up."}
+              value={value}>
+            </textarea>
+          </div>
+          <button style={{width: "11%", position: "absolute", bottom: "1px", left: "537px"}} className={"status-button"} onClick={this.submitForm}>Post</button>
         </div>
       </div>)
   }
 })
+
+//LoginStore.user().profPic
